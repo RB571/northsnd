@@ -52,7 +52,7 @@
             <p id="activeTitle" class="font-semibold"></p>
             <p id="activeId" class="text-xs text-neutral-500"></p>
           </div>
-          <button id="openInYouTube" class="text-sm px-3 py-1.5 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-medium disabled:opacity-40" disabled>Open op YouTube</button>
+          <button id="openInYouTube" class="text-sm px-3 py-1.5 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-medium disabled:opacity-40" disabled type="button">Open op YouTube</button>
         </div>
       </div>
 
@@ -61,7 +61,7 @@
         <div class="p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/60">
           <h3 class="text-lg font-semibold mb-2">Playlist toevoegen</h3>
           <p class="text-sm text-neutral-500 mb-4">Plak een YouTube playlist-URL of -ID. Geef eventueel een naam. Voorbeeld URL: <span class="font-mono">https://www.youtube.com/playlist?list=...</span></p>
-          <form id="addForm" class="grid gap-2">
+          <form id="addForm" class="grid gap-2" novalidate>
             <label class="text-sm font-medium" for="plInput">Playlist URL of ID</label>
             <input id="plInput" type="text" required placeholder="https://www.youtube.com/playlist?list=PL... of bv. PLxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" class="px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900" />
             <label class="text-sm font-medium mt-2" for="plName">Naam (optioneel)</label>
@@ -112,8 +112,13 @@
     </div>
   </footer>
 
+  <!--
+    CARD TEMPLATE
+    Fix: outer wrapper is now a DIV instead of a BUTTON to avoid invalid nested <button> elements,
+    which caused Safari/WebKit to drop inner buttons and led to null querySelector results.
+  -->
   <template id="cardTpl">
-    <button class="group shrink-0 w-56 text-left">
+    <div class="group shrink-0 w-56 text-left cursor-pointer" data-card tabindex="0" role="button" aria-label="Playlist kaart">
       <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/60 p-4 hover:border-neutral-300 hover:shadow-sm transition">
         <div class="aspect-video rounded-xl bg-neutral-200/60 dark:bg-neutral-800/60 grid place-items-center text-xs text-neutral-500">
           <span class="group-data-[active=true]:hidden">YouTube Playlist</span>
@@ -126,12 +131,12 @@
         <div class="mt-3 flex items-center justify-between">
           <span class="text-xs px-2 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800" data-count>—</span>
           <div class="flex gap-1">
-            <button class="text-xs px-2 py-1 rounded-lg border border-neutral-300 dark:border-neutral-700" data-open>Open</button>
-            <button class="text-xs px-2 py-1 rounded-lg border border-red-300 text-red-600 dark:border-red-700" data-del>Verwijder</button>
+            <button class="text-xs px-2 py-1 rounded-lg border border-neutral-300 dark:border-neutral-700" data-open type="button">Open</button>
+            <button class="text-xs px-2 py-1 rounded-lg border border-red-300 text-red-600 dark:border-red-700" data-del type="button">Verwijder</button>
           </div>
         </div>
       </div>
-    </button>
+    </div>
   </template>
 
   <script>
@@ -174,9 +179,9 @@
       openBtn.disabled = false;
       openBtn.onclick = () => window.open(`https://www.youtube.com/playlist?list=${encodeURIComponent(pl.id)}`, '_blank');
       // Mark active in UI
-      for(const btn of row.querySelectorAll('button.group')){
-        const id = btn.dataset.id;
-        btn.dataset.active = id === pl.id ? 'true' : 'false';
+      for(const card of row.querySelectorAll('[data-card]')){
+        const id = card.dataset.id;
+        card.dataset.active = id === pl.id ? 'true' : 'false';
       }
     }
 
@@ -187,27 +192,48 @@
       arr.forEach(pl => {
         const node = tpl.content.firstElementChild.cloneNode(true);
         node.dataset.id = pl.id;
-        node.querySelector('[data-title]').textContent = pl.title || 'Naamloze playlist';
-        node.querySelector('[data-id]').textContent = pl.id;
-        node.querySelector('[data-open]').addEventListener('click', (e)=>{ e.stopPropagation(); setActive(pl); });
-        node.addEventListener('click', ()=> setActive(pl));
-        node.querySelector('[data-del]').addEventListener('click', (e)=>{
-          e.stopPropagation();
-          const next = load().filter(x => x.id !== pl.id);
-          save(next); render();
-          // If we deleted the active one, clear player
-          if(activeId.textContent === pl.id){
-            frame.src = '';
-            activeTitle.textContent = '';
-            activeId.textContent = '';
-            openBtn.disabled = true;
-          }
-        });
-        // Try to infer an item count badge from guessable IDs (optional aesthetic)
-        node.querySelector('[data-count]').textContent = 'Playlist';
+        const t = node.querySelector('[data-title]'); if(t) t.textContent = pl.title || 'Naamloze playlist';
+        const i = node.querySelector('[data-id]'); if(i) i.textContent = pl.id;
+        const c = node.querySelector('[data-count]'); if(c) c.textContent = 'Playlist';
         row.appendChild(node);
       });
     }
+
+    // Event delegation: robust against template/DOM timing
+    row.addEventListener('click', (e)=>{
+      const delBtn = e.target.closest('[data-del]');
+      if(delBtn){
+        e.stopPropagation();
+        const card = delBtn.closest('[data-card]');
+        const id = card?.dataset.id;
+        if(!id) return;
+        const next = load().filter(x => x.id !== id);
+        save(next);
+        render();
+        if(activeId.textContent === id){
+          frame.src = '';
+          activeTitle.textContent = '';
+          activeId.textContent = '';
+          openBtn.disabled = true;
+        }
+        return;
+      }
+      const openInCard = e.target.closest('[data-open]');
+      if(openInCard){
+        e.stopPropagation();
+        const card = openInCard.closest('[data-card]');
+        const id = card?.dataset.id;
+        const pl = load().find(x => x.id === id);
+        if(pl) setActive(pl);
+        return;
+      }
+      const card = e.target.closest('[data-card]');
+      if(card){
+        const id = card.dataset.id;
+        const pl = load().find(x => x.id === id);
+        if(pl) setActive(pl);
+      }
+    });
 
     // Defaults (you can replace these with your own)
     const DEFAULTS = [
@@ -248,6 +274,43 @@
       }
     });
 
+    // --- Simple runtime tests / diagnostics ---
+    function report(el, ok, msg){
+      const li = document.createElement('li');
+      li.textContent = (ok ? '✅ ' : '❌ ') + msg;
+      el.appendChild(li);
+    }
+
+    function runTests(){
+      const list = byId('testList');
+      if(!list) return;
+      // Test 1: template structure
+      try{
+        const node = tpl.content.firstElementChild.cloneNode(true);
+        const hasOpen = !!node.querySelector('[data-open]');
+        const hasDel = !!node.querySelector('[data-del]');
+        report(list, !!node, 'Template clone maakbaar');
+        report(list, hasOpen, 'Template bevat [data-open]');
+        report(list, hasDel, 'Template bevat [data-del]');
+      }catch(e){ report(list, false, 'Template clone faalde: ' + e.message); }
+
+      // Test 2: extractPlaylistId
+      try{
+        const id1 = extractPlaylistId('https://www.youtube.com/playlist?list=PL1234567890abcdef');
+        report(list, id1 === 'PL1234567890abcdef', 'extractPlaylistId haalt ID uit URL');
+        const id2 = extractPlaylistId('PLabcdefghijklmnopqrstuvwxyzABCD');
+        report(list, id2 === 'PLabcdefghijklmnopqrstuvwxyzABCD', 'extractPlaylistId accepteert los ID');
+        const id3 = extractPlaylistId('invalid');
+        report(list, id3 === '', 'extractPlaylistId verwerpt ongeldige invoer');
+      }catch(e){ report(list, false, 'extractPlaylistId tests faalden: ' + e.message); }
+
+      // Test 3: render creates cards
+      try{
+        const before = row.children.length; render(); const after = row.children.length;
+        report(list, after >= 0, 'Render uitvoerbaar (cards aanwezig: ' + after + ')');
+      }catch(e){ report(list, false, 'Render faalde: ' + e.message); }
+    }
+
     // Init
     document.addEventListener('DOMContentLoaded', ()=>{
       byId('year').textContent = new Date().getFullYear();
@@ -255,7 +318,17 @@
       render();
       const arr = load();
       if(arr[0]) setActive(arr[0]);
+      runTests();
     });
   </script>
+
+  <!-- Diagnostics UI (optional) -->
+  <section class="mx-auto max-w-6xl px-4 pb-10">
+    <details class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/60 dark:bg-neutral-900/50 p-4">
+      <summary class="cursor-pointer select-none font-semibold">Diagnostiek & tests</summary>
+      <ul id="testList" class="mt-3 space-y-1 text-sm text-neutral-700 dark:text-neutral-300"></ul>
+      <p class="mt-3 text-xs text-neutral-500">Deze mini‑tests draaien in de browser om basisfouten te vangen (zoals ontbrekende template‑knoppen).</p>
+    </details>
+  </section>
 </body>
 </html>
