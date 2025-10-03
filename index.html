@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Northsnd — Albums, EP's & Singles (v2)</title>
+  <meta name="description" content="Northsnd: Albums, EP's en Singles. Singles tonen links tekst (Track / Release date / Info), rechts de YouTube-player." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -32,7 +34,7 @@
 
     
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6">
-      <p class="text-xl sm:text-2xl text-neutral-700 dark:text-neutral-300 leading-relaxed text-center max-w-3xl mx-auto">Northsnd revisits his formative years in music with ‘Schoolwork’, a five-part retrospective spanning 100 tracks produced between 1996 and 2014. Moving from happy hardcore and dreamhouse to trance and techno, the project captures both his personal and musical growth during the pre-internet era. Now fully remastered with modern tools, including A.I., ‘Schoolwork’ breathes new life into his teenage creations and frames them for today’s listeners.<br><br>The project comprises 5 albums (100 tracks in total), alongside 2 compilation albums, 1 remix album, 8 EPs, and 60 singles, making Schoolwork one of the most extensive archival releases in electronic music.</p>
+      <p class="text-lg sm:text-xl text-neutral-700 dark:text-neutral-300 leading-snug mb-4 text-center max-w-2xl mx-auto">Northsnd revisits his formative years in music with ‘Schoolwork’, a five-part retrospective spanning 100 tracks produced between 1996 and 2014. Moving from happy hardcore and dreamhouse to trance and techno, the project captures both his personal and musical growth during the pre-internet era. Now fully remastered with modern tools, including A.I., ‘Schoolwork’ breathes new life into his teenage creations and frames them for today’s listeners.<br><br>The project comprises 5 albums (100 tracks in total), alongside 2 compilation albums, 1 remix album, 8 EPs, and 60 singles, making Schoolwork one of the most extensive archival releases in electronic music.</p>
     </div>
 
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10">
@@ -41,7 +43,6 @@
         <a href="#eps" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">EP's</a>
         <a href="#singles" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">Singles</a>
         <a href="#videos" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">Video's</a>
-        <button id="resetAll" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">Alles wissen</button>
       </div>
     </div>
   </header>
@@ -91,9 +92,6 @@
       <div class="flex flex-col md:flex-row gap-4 md:gap-6 items-stretch">
         <!-- LEFT: For albums/eps: art + title/desc; for singles: text-only fields -->
         <div class="md:w-5/12 lg:w-4/12 flex flex-col gap-3">
-          <div class="artwrap bg-gradient-to-br from-neutral-200 to-neutral-300 dark:from-neutral-800 dark:to-neutral-700" data-artwrap>
-            <img data-art alt="Artwork" />
-          </div>
           <div class="space-y-1" data-meta-albumeps>
             <h3 class="text-lg font-semibold" data-title>Title</h3>
             <p class="text-xs text-neutral-500" data-desc>Beschrijving</p>
@@ -105,11 +103,6 @@
             <dt>Release date:</dt> <dd data-releasedate>—</dd>
             <dt>Info:</dt>         <dd data-infotext>—</dd>
           </dl>
-
-          <div class="flex gap-2">
-            <button class="text-xs px-2 py-1 rounded-lg border border-neutral-300 dark:border-neutral-700" data-config type="button">Instellen</button>
-            <button class="text-xs px-2 py-1 rounded-lg border border-neutral-300 dark:border-neutral-700" data-clear type="button">Leegmaken</button>
-          </div>
         </div>
 
         <!-- RIGHT: Player -->
@@ -121,21 +114,6 @@
       </div>
 
       <!-- Config panel -->
-      <div class="hidden mt-4 flex flex-col gap-2" data-panel>
-        <label class="text-xs font-medium" data-input-label>YouTube URL of ID</label>
-        <input data-input type="text" placeholder="" class="px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900" />
-        <div class="grid md:grid-cols-3 gap-2">
-          <input data-title-input type="text" placeholder="" class="px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900" />
-          <input data-date-input type="date" class="px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 hidden" />
-          <input data-desc-input type="text" placeholder="" class="px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900" />
-        </div>
-        <div class="grid md:grid-cols-3 gap-2">
-          <input data-img-input type="url" placeholder="Afbeelding‑URL (alleen voor Albums/EP's)" class="px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900" />
-          <div></div><div></div>
-        </div>
-        <div class="flex gap-2">
-          <button data-save class="px-3 py-2 rounded-xl bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 text-sm font-semibold" type="button">Opslaan</button>
-        </div>
       </div>
     </section>
   </template>
@@ -152,27 +130,27 @@
 
     // ---- Defaults: Albums (9) ----
     const ALBUMS = [
-      { key: 'album1', title: 'Schoolwork Vol.1: Experiment', desc: '“Volume 1: Experiment” explores his early years of music production (1996/1997), experimenting with different musical styles representing the happy hardcore, dreamhouse and club-era musical styles of the late 90s.', id: 'OLAK5uy_m4tokCTFFIPH6mJgsCAw5gUtqdsfFmrhg', img: 'SW1.png', type:'playlist' },
-      { key: 'album2', title: 'Schoolwork Vol.2: Experience', desc: 'Vervolg met nieuwe sounds', id: 'OLAK5uy_l1SpJ2A45XndQ_P3_8DguCsFyHOLg67rQ', img: 'SW2.png', type:'playlist' },
-      { key: 'album3', title: 'Schoolwork Vol.3: Expedition', desc: 'Op ontdekking in sound', id: 'OLAK5uy_noouP06YTET5_SDssBEIA_5PxPlizQ2Qw', img: 'SW3.png', type:'playlist' },
-      { key: 'album4', title: 'Schoolwork Vol.4: Exploration', desc: 'Verder de diepte in', id: 'OLAK5uy_kgZVvQVhsJ8c9dwOZq3ma8-Rk2Q9Si5-g', img: 'SW4.png', type:'playlist' },
-      { key: 'album5', title: 'Schoolwork Vol.5: Expression', desc: 'Expressieve climax', id: 'OLAK5uy_m1bRKRArY9XIL-_buiZCSl9s98yXWM6xE', img: 'SW5.png', type:'playlist' },
-      { key: 'album6', title: 'Once Upon a Lifetime', desc: 'Singles Collection', id: 'OLAK5uy_lnZoZpuWniE0zzFIcxB82l1-27FysUZDk', img: 'once4.png', type:'playlist' },
-      { key: 'album7', title: 'Ambience', desc: 'Schoolwork Ambient Remixes', id: 'OLAK5uy_kKKd5Z4ed2x8m0FR0kIWs-Am9KaG6cWaY', img: 'ambbbnew2.png', type:'playlist' },
-      { key: 'album8', title: 'Extended Memories', desc: 'The Very Best of Schoolwork', id: 'OLAK5uy_lZRfJMAjIzTYHfMPkYakvJpcbqPgKFlB0', img: 'bestof2.png', type:'playlist' },
-      { key: 'album9', title: 'Redemption: Legacy', desc: 'Best of 2000–2025 (Northsnd & Megapete)', id: 'OLAK5uy_kCqZSxa37lgrJdp2fJyYKXIdBUBwGP3JU', img: 'legdef.png', type:'playlist' }
+      { key: 'album1', title: 'Schoolwork Vol.1: Experiment', desc: 'De aftrap van de serie', id: 'OLAK5uy_m4tokCTFFIPH6mJgsCAw5gUtqdsfFmrhg', type:'playlist' },
+      { key: 'album2', title: 'Schoolwork Vol.2: Experience', desc: 'Vervolg met nieuwe sounds', id: 'OLAK5uy_l1SpJ2A45XndQ_P3_8DguCsFyHOLg67rQ', type:'playlist' },
+      { key: 'album3', title: 'Schoolwork Vol.3: Expedition', desc: 'Op ontdekking in sound', id: 'OLAK5uy_noouP06YTET5_SDssBEIA_5PxPlizQ2Qw', type:'playlist' },
+      { key: 'album4', title: 'Schoolwork Vol.4: Exploration', desc: 'Verder de diepte in', id: 'OLAK5uy_kgZVvQVhsJ8c9dwOZq3ma8-Rk2Q9Si5-g', type:'playlist' },
+      { key: 'album5', title: 'Schoolwork Vol.5: Expression', desc: 'Expressieve climax', id: 'OLAK5uy_m1bRKRArY9XIL-_buiZCSl9s98yXWM6xE', type:'playlist' },
+      { key: 'album6', title: 'Once Upon a Lifetime', desc: 'Singles Collection', id: 'OLAK5uy_lnZoZpuWniE0zzFIcxB82l1-27FysUZDk', type:'playlist' },
+      { key: 'album7', title: 'Ambience', desc: 'Schoolwork Ambient Remixes', id: 'OLAK5uy_kKKd5Z4ed2x8m0FR0kIWs-Am9KaG6cWaY', type:'playlist' },
+      { key: 'album8', title: 'Extended Memories', desc: 'The Very Best of Schoolwork', id: 'OLAK5uy_lZRfJMAjIzTYHfMPkYakvJpcbqPgKFlB0', type:'playlist' },
+      { key: 'album9', title: 'Redemption: Legacy', desc: 'Best of 2000–2025 (Northsnd & Megapete)', id: 'OLAK5uy_kCqZSxa37lgrJdp2fJyYKXIdBUBwGP3JU', type:'playlist' }
     ];
 
     // ---- Defaults: EPs (8) ----
     const EPS = [
-      { key: 'ep1', title: 'Ambient Odyssey (EP)', desc: '', id: 'OLAK5uy_l-kPx2ZAjfwCrsOUgAShcdzviPf9KDLV4', img: 'ao.png', type:'playlist' },
-      { key: 'ep2', title: 'Beatless Dance (EP)', desc: '', id: 'OLAK5uy_lDUM318reG01f1HWfQMKxWO1R6D35K_Hg', img: 'beat1.png', type:'playlist' },
-      { key: 'ep3', title: 'Beatless Dreamhouse (EP)', desc: '', id: 'OLAK5uy_kG9nYKh8CHZ_kXG0QzXD32aLBI20rW88U', img: 'beat2.png', type:'playlist' },
-      { key: 'ep4', title: 'Beatless Hardcore (EP)', desc: '', id: 'OLAK5uy_kzVuGfZwXqp89kRxNhpTt3is3hmrJVNFM', img: 'beat4.png', type:'playlist' },
-      { key: 'ep5', title: 'Beatless Trance (EP)', desc: '', id: 'OLAK5uy_kTEZzb5F3RfOvkC1VhVFcyj5513Cxk5bA', img: 'beat5.png', type:'playlist' },
-      { key: 'ep6', title: 'Adagio (EP)', desc: '', id: 'OLAK5uy_noEVKa-PycdPup54jq5-EjvR7AUlqVdXU', img: 'adagio ep.png', type:'playlist' },
-      { key: 'ep7', title: 'Passion (EP)', desc: '', id: 'OLAK5uy_mQ8JBaVB4OL3M6ad69Nd7tnLxSpaWQOtU', img: 'passionep.png', type:'playlist' },
-      { key: 'ep8', title: 'Time (EP)', desc: '', id: 'OLAK5uy_nnt_8l3CvRx9emOqOM-65JuQFAYFAyHt4', img: 'timeep.png', type:'playlist' }
+      { key: 'ep1', title: 'Ambient Odyssey (EP)', desc: '', id: 'OLAK5uy_l-kPx2ZAjfwCrsOUgAShcdzviPf9KDLV4', type:'playlist' },
+      { key: 'ep2', title: 'Beatless Dance (EP)', desc: '', id: 'OLAK5uy_lDUM318reG01f1HWfQMKxWO1R6D35K_Hg', type:'playlist' },
+      { key: 'ep3', title: 'Beatless Dreamhouse (EP)', desc: '', id: 'OLAK5uy_kG9nYKh8CHZ_kXG0QzXD32aLBI20rW88U', type:'playlist' },
+      { key: 'ep4', title: 'Beatless Hardcore (EP)', desc: '', id: 'OLAK5uy_kzVuGfZwXqp89kRxNhpTt3is3hmrJVNFM', type:'playlist' },
+      { key: 'ep5', title: 'Beatless Trance (EP)', desc: '', id: 'OLAK5uy_kTEZzb5F3RfOvkC1VhVFcyj5513Cxk5bA', type:'playlist' },
+      { key: 'ep6', title: 'Adagio (EP)', desc: '', id: 'OLAK5uy_noEVKa-PycdPup54jq5-EjvR7AUlqVdXU', type:'playlist' },
+      { key: 'ep7', title: 'Passion (EP)', desc: '', id: 'OLAK5uy_mQ8JBaVB4OL3M6ad69Nd7tnLxSpaWQOtU', type:'playlist' },
+      { key: 'ep8', title: 'Time (EP)', desc: '', id: 'OLAK5uy_nnt_8l3CvRx9emOqOM-65JuQFAYFAyHt4', type:'playlist' }
     ];
 
     // ---- Defaults: Singles (60) ----
@@ -188,7 +166,7 @@
       date: '',                   // Release date
       info: '',                   // Info
       id: '',                     // videoId
-      img: '',                    // not used (ignored)
+      
       type: 'video'
     }));
     // Prefill Single 1 with earlier link
@@ -254,17 +232,13 @@
         }
       });
     }
-    function save(key, arr){ localStorage.setItem(key, JSON.stringify(arr)); }
-
     function embedUrlPlaylist(id){ return `https://www.youtube.com/embed/videoseries?rel=0&list=${encodeURIComponent(id)}`; }
     function embedUrlVideo(id){ return `https://www.youtube.com/embed/${encodeURIComponent(id)}?rel=0`; }
 
     function buildRow(item, storeKey, defaults){
       const node = rowTpl.content.firstElementChild.cloneNode(true);
       node.dataset.key = item.key;
-      const artwrap = node.querySelector('[data-artwrap]');
-      const art = node.querySelector('[data-art]');
-      const metaAlbEp = node.querySelector('[data-meta-albumeps]');
+                  const metaAlbEp = node.querySelector('[data-meta-albumeps]');
       const metaSingles = node.querySelector('[data-meta-singles]');
       const tracktext = node.querySelector('[data-tracktext]');
       const releasedate = node.querySelector('[data-releasedate]');
@@ -272,103 +246,30 @@
       const titleH = node.querySelector('[data-title]');
       const descP = node.querySelector('[data-desc]');
       const frame = node.querySelector('[data-frame]');
-      const panel = node.querySelector('[data-panel]');
-      const cfgBtn = node.querySelector('[data-config]');
-      const clrBtn = node.querySelector('[data-clear]');
-
-      const inputLabel = node.querySelector('[data-input-label]');
-      const input = node.querySelector('[data-input]');
-      const titleInput = node.querySelector('[data-title-input]');
-      const dateInput = node.querySelector('[data-date-input]');
-      const descInput = node.querySelector('[data-desc-input]');
-      const imgInput = node.querySelector('[data-img-input]');
 
       if(item.type === 'video'){
         // Singles: no image, left text-only
-        artwrap.classList.add('hidden');
-        metaAlbEp.classList.add('hidden');
+                metaAlbEp.classList.add('hidden');
         metaSingles.classList.remove('hidden');
 
         tracktext.textContent = item.title || '—';
         releasedate.textContent = item.date || '—';
         infotext.textContent = item.info || '—';
 
-        frame.src = item.id ? embedUrlVideo(item.id) : '';
-
-        inputLabel.textContent = 'YouTube video‑URL of ID';
-        input.placeholder = 'https://www.youtube.com/watch?v=... of alleen het ID';
-        input.value = item.id ? `https://www.youtube.com/watch?v=${item.id}` : '';
-
-        titleInput.placeholder = 'Track';
-        titleInput.value = item.title || '';
-        dateInput.classList.remove('hidden');
-        dateInput.value = item.date || '';
-        descInput.placeholder = 'Info';
-        descInput.value = item.info || '';
-        imgInput.value = ''; // ignored
-        imgInput.disabled = true;
+        frame.src = item.id ? `https://www.youtube.com/embed/${encodeURIComponent(item.id)}?rel=0` : '';
       } else {
         // Albums/EPs
-        artwrap.classList.remove('hidden');
-        metaAlbEp.classList.remove('hidden');
+                metaAlbEp.classList.remove('hidden');
         metaSingles.classList.add('hidden');
 
         titleH.textContent = item.title || '';
         descP.textContent = item.desc || '';
-        if(item.img){ art.src = item.img; } else { art.removeAttribute('src'); }
-        frame.src = item.id ? embedUrlPlaylist(item.id) : '';
-
-        inputLabel.textContent = 'YouTube playlist‑URL of ID';
-        input.placeholder = 'https://www.youtube.com/playlist?list=... of alleen het ID';
-        input.value = item.id ? `https://www.youtube.com/playlist?list=${item.id}` : '';
-
-        titleInput.placeholder = 'Titel';
-        titleInput.value = item.title || '';
-        dateInput.classList.add('hidden');
-        descInput.placeholder = 'Beschrijving';
-        descInput.value = item.desc || '';
-        imgInput.disabled = false;
-        imgInput.value = item.img || '';
+        
+        frame.src = item.id ? `https://www.youtube.com/embed/videoseries?rel=0&list=${encodeURIComponent(item.id)}` : '';
       }
-
-      cfgBtn.addEventListener('click', ()=> panel.classList.toggle('hidden'));
-      clrBtn.addEventListener('click', ()=>{
-        const arr = load(storeKey, defaults);
-        const idx = arr.findIndex(a => a.key === item.key);
-        if(idx >= 0){
-          arr[idx].id = '';
-          if(arr[idx].type === 'video'){ arr[idx].title = defaults[idx]?.title || arr[idx].title; arr[idx].date = ''; arr[idx].info = ''; }
-          save(storeKey, arr);
-          render();
-        }
-      });
-
-      node.querySelector('[data-save]').addEventListener('click', ()=>{
-        const arr = load(storeKey, defaults);
-        const idx = arr.findIndex(a => a.key === item.key);
-        if(idx >= 0){
-          if(arr[idx].type === 'video'){
-            const newId = extractVideoId(input.value.trim());
-            arr[idx].id = newId || '';
-            arr[idx].title = titleInput.value.trim() || arr[idx].title;
-            arr[idx].date = dateInput.value || '';
-            arr[idx].info = descInput.value.trim() || '';
-            // img ignored
-          } else {
-            const newId = extractPlaylistId(input.value.trim());
-            arr[idx].id = newId || '';
-            arr[idx].title = titleInput.value.trim() || arr[idx].title;
-            arr[idx].desc = descInput.value.trim() || '';
-            arr[idx].img = imgInput.value.trim() || '';
-          }
-          save(storeKey, arr);
-          render();
-        }
-      });
 
       return node;
     }
-
     function render(){
       const albumData = load(STORAGE_ALBUMS, ALBUMS);
       const epData = load(STORAGE_EPS, EPS);
@@ -387,16 +288,6 @@
       singleData.forEach(item => singleList.appendChild(buildRow(item, STORAGE_SINGS, SINGLES)));
       videoData.forEach(item => videoList.appendChild(buildRow(item, STORAGE_VIDS, VIDEOS)));
     }
-
-    byId('resetAll').addEventListener('click', ()=>{
-      if(confirm('Alle Albums, EP’s en Singles wissen?')){
-        localStorage.removeItem(STORAGE_ALBUMS);
-        localStorage.removeItem(STORAGE_EPS);
-        localStorage.removeItem(STORAGE_SINGS);
-        localStorage.removeItem(STORAGE_VIDS);
-        render();
-      }
-    });
 
     document.addEventListener('DOMContentLoaded', ()=>{
       byId('year').textContent = new Date().getFullYear();
