@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Northsnd — Albums, EP's & Singles (v2)</title>
-  <meta name="description" content="Northsnd: Albums, EP's en Singles. Singles tonen links tekst (Track / Release date / Info), rechts de YouTube-player." />
+  <title>Northsnd — Albums, EP's & Singles</title>
+  <meta name="description" content="Northsnd: Albums, EP's en Singles." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,38 +14,32 @@
     html { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif; }
     .ratio-16x9 { position: relative; width: 100%; padding-bottom: 56.25%; }
     .ratio-16x9 iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; border-radius: 1rem; }
-    .artwrap { position: relative; aspect-ratio: 1 / 1; }
-    .artwrap img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:1rem; }
-    .kv { display:grid; grid-template-columns: 120px 1fr; gap:.25rem .5rem; }
-    .kv dt { color: rgb(115 115 115); font-size:.75rem; }
-    .kv dd { font-weight: 600; font-size:.95rem; }
     .section-spacing { margin-top: 3.5rem; }
-  
-    .hero img{display:block;width:100%;height:auto;}
-
   </style>
 </head>
 <body class="bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
-  \1
 
   <figure class="w-full">
     <img src="ChatGPT Image 3 okt 2025, 12_00_13.png" alt="Northsnd Schoolwork banner" style="width:100%;height:auto;display:block;border:0;"/>
   </figure>
 
-    
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6">
-      <p class="text-lg sm:text-xl text-neutral-700 dark:text-neutral-300 leading-snug mb-4 text-center max-w-2xl mx-auto">Northsnd revisits his formative years in music with ‘Schoolwork’, a five-part retrospective spanning 100 tracks produced between 1996 and 2014. Moving from happy hardcore and dreamhouse to trance and techno, the project captures both his personal and musical growth during the pre-internet era. Now fully remastered with modern tools, including A.I., ‘Schoolwork’ breathes new life into his teenage creations and frames them for today’s listeners.<br><br>The project comprises 5 albums (100 tracks in total), alongside 2 compilation albums, 1 remix album, 8 EPs, and 60 singles, making Schoolwork one of the most extensive archival releases in electronic music.</p>
-    </div>
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6">
+    <p class="text-lg sm:text-xl text-neutral-700 dark:text-neutral-300 leading-snug mb-4 text-center max-w-2xl mx-auto">
+      Northsnd revisits his formative years in music with ‘Schoolwork’, a five-part retrospective spanning 100 tracks produced between 1996 and 2014. 
+      Moving from happy hardcore and dreamhouse to trance and techno, the project captures both his personal and musical growth during the pre-internet era. 
+      Now fully remastered with modern tools, including A.I., ‘Schoolwork’ breathes new life into his teenage creations and frames them for today’s listeners.<br><br>
+      The project comprises 5 albums (100 tracks in total), alongside 2 compilation albums, 1 remix album, 8 EPs, and 60 singles, making Schoolwork one of the most extensive archival releases in electronic music.
+    </p>
+  </div>
 
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10">
-      <div class="mt-6 flex flex-wrap justify-center gap-3">
-        <a href="#albums" class="px-4 py-2 rounded-xl bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-semibold">Albums</a>
-        <a href="#eps" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">EP's</a>
-        <a href="#singles-excel" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">Singles (Excel)</a>
-        <a href="#videos" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">Video's</a>
-      </div>
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10">
+    <div class="mt-6 flex flex-wrap justify-center gap-3">
+      <a href="#albums" class="px-4 py-2 rounded-xl bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-semibold">Albums</a>
+      <a href="#eps" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">EP's</a>
+      <a href="#singles-excel" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">Singles</a>
+      <a href="#videos" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">Video's</a>
     </div>
-  </header>
+  </div>
 
   <main class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10">
     <!-- Albums -->
@@ -61,14 +55,8 @@
     </section>
 
     <!-- Singles -->
-    <section id="singles" class="section-spacing">
-      <h2 class="text-2xl font-bold mb-6">Singles</h2>
-      <div id="singleList" class="space-y-8"></div>
-    </section>
-
-    <!-- Singles (Excel) -->
     <section id="singles-excel" class="section-spacing">
-      <h2 class="text-2xl font-bold mb-6">Singles (Excel)</h2>
+      <h2 class="text-2xl font-bold mb-6">Singles</h2>
       <div id="singleListExcel" class="space-y-8"></div>
     </section>
 
@@ -85,202 +73,66 @@
       <div class="flex gap-4">
         <a class="hover:underline" href="#albums">Albums</a>
         <a class="hover:underline" href="#eps">EP's</a>
-        <a class="hover:underline" href="#singles">Singles</a>
+        <a class="hover:underline" href="#singles-excel">Singles</a>
         <a class="hover:underline" href="#videos">Video's</a>
-        <a href="#videos" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">Video's</a>
       </div>
     </div>
   </footer>
 
-  <!-- Card Template (shared) -->
+  <!-- Template -->
   <template id="rowTpl">
-    <section class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/60 p-4" data-card>
+    <section class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/60 p-4">
       <div class="flex flex-col md:flex-row gap-4 md:gap-6 items-stretch">
-        <!-- LEFT: For albums/eps: art + title/desc; for singles: text-only fields -->
         <div class="md:w-5/12 lg:w-4/12 flex flex-col gap-3">
-          <div class="space-y-1" data-meta-albumeps>
+          <div class="space-y-1">
             <h3 class="text-lg font-semibold" data-title>Title</h3>
             <p class="text-xs text-neutral-500" data-desc>Beschrijving</p>
           </div>
-
-          <!-- Singles-only meta (text labels + values) -->
-          <dl class="kv hidden" data-meta-singles>
-            <dt>Track:</dt>        <dd data-tracktext>—</dd>
-            <dt>Release date:</dt> <dd data-releasedate>—</dd>
-            <dt>Info:</dt>         <dd data-infotext>—</dd>
-          </dl>
         </div>
-
-        <!-- RIGHT: Player -->
         <div class="md:w-7/12 lg:w-8/12">
           <div class="ratio-16x9 bg-neutral-200/50 dark:bg-neutral-800/50 rounded-xl overflow-hidden">
             <iframe data-frame allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="YouTube"></iframe>
           </div>
         </div>
       </div>
-
-      <!-- Config panel -->
-      </div>
     </section>
   </template>
 
   <script>
-    const byId = (id) => document.getElementById(id);
-    const rowTpl = byId('rowTpl');
+    (function(){
+      const byId = (id) => document.getElementById(id);
+      function safe(q){ return q || ''; }
+      function setYear(){ const y = byId('year'); if(y) y.textContent = new Date().getFullYear(); }
 
-    // ---- Storage keys ----
-    const STORAGE_ALBUMS = 'northsnd_albums_all_v2';
-    const STORAGE_EPS    = 'northsnd_eps_all_v2';
-    const STORAGE_SINGS  = 'northsnd_singles_all_v3';
-    const STORAGE_VIDS   = 'northsnd_videos_all_v1';
+      const ALBUMS = [
+        { title: 'Schoolwork Vol.1: Experiment', desc: 'De aftrap van de serie', id: 'OLAK5uy_m4tokCTFFIPH6mJgsCAw5gUtqdsfFmrhg', type:'playlist' },
+        { title: 'Schoolwork Vol.2: Experience', desc: 'Vervolg met nieuwe sounds', id: 'OLAK5uy_l1SpJ2A45XndQ_P3_8DguCsFyHOLg67rQ', type:'playlist' },
+        { title: 'Schoolwork Vol.3: Expedition', desc: 'Op ontdekking in sound', id: 'OLAK5uy_noouP06YTET5_SDssBEIA_5PxPlizQ2Qw', type:'playlist' },
+        { title: 'Schoolwork Vol.4: Exploration', desc: 'Verder de diepte in', id: 'OLAK5uy_kgZVvQVhsJ8c9dwOZq3ma8-Rk2Q9Si5-g', type:'playlist' },
+        { title: 'Schoolwork Vol.5: Expression', desc: 'Expressieve climax', id: 'OLAK5uy_m1bRKRArY9XIL-_buiZCSl9s98yXWM6xE', type:'playlist' },
+        { title: 'Once Upon a Lifetime', desc: 'Singles Collection', id: 'OLAK5uy_lnZoZpuWniE0zzFIcxB82l1-27FysUZDk', type:'playlist' },
+        { title: 'Ambience', desc: 'Schoolwork Ambient Remixes', id: 'OLAK5uy_kKKd5Z4ed2x8m0FR0kIWs-Am9KaG6cWaY', type:'playlist' },
+        { title: 'Extended Memories', desc: 'The Very Best of Schoolwork', id: 'OLAK5uy_lZRfJMAjIzTYHfMPkYakvJpcbqPgKFlB0', type:'playlist' },
+        { title: 'Redemption: Legacy', desc: 'Best of 2000–2025 (Northsnd & Megapete)', id: 'OLAK5uy_kCqZSxa37lgrJdp2fJyYKXIdBUBwGP3JU', type:'playlist' }
+      ];
 
-    // ---- Defaults: Albums (9) ----
-    const ALBUMS = [
-      { key: 'album1', title: 'Schoolwork Vol.1: Experiment', desc: 'De aftrap van de serie', id: 'OLAK5uy_m4tokCTFFIPH6mJgsCAw5gUtqdsfFmrhg', type:'playlist' },
-      { key: 'album2', title: 'Schoolwork Vol.2: Experience', desc: 'Vervolg met nieuwe sounds', id: 'OLAK5uy_l1SpJ2A45XndQ_P3_8DguCsFyHOLg67rQ', type:'playlist' },
-      { key: 'album3', title: 'Schoolwork Vol.3: Expedition', desc: 'Op ontdekking in sound', id: 'OLAK5uy_noouP06YTET5_SDssBEIA_5PxPlizQ2Qw', type:'playlist' },
-      { key: 'album4', title: 'Schoolwork Vol.4: Exploration', desc: 'Verder de diepte in', id: 'OLAK5uy_kgZVvQVhsJ8c9dwOZq3ma8-Rk2Q9Si5-g', type:'playlist' },
-      { key: 'album5', title: 'Schoolwork Vol.5: Expression', desc: 'Expressieve climax', id: 'OLAK5uy_m1bRKRArY9XIL-_buiZCSl9s98yXWM6xE', type:'playlist' },
-      { key: 'album6', title: 'Once Upon a Lifetime', desc: 'Singles Collection', id: 'OLAK5uy_lnZoZpuWniE0zzFIcxB82l1-27FysUZDk', type:'playlist' },
-      { key: 'album7', title: 'Ambience', desc: 'Schoolwork Ambient Remixes', id: 'OLAK5uy_kKKd5Z4ed2x8m0FR0kIWs-Am9KaG6cWaY', type:'playlist' },
-      { key: 'album8', title: 'Extended Memories', desc: 'The Very Best of Schoolwork', id: 'OLAK5uy_lZRfJMAjIzTYHfMPkYakvJpcbqPgKFlB0', type:'playlist' },
-      { key: 'album9', title: 'Redemption: Legacy', desc: 'Best of 2000–2025 (Northsnd & Megapete)', id: 'OLAK5uy_kCqZSxa37lgrJdp2fJyYKXIdBUBwGP3JU', type:'playlist' }
-    ];
+      const EPS = [
+        { title: 'Ambient Odyssey (EP)', desc: '', id: 'OLAK5uy_l-kPx2ZAjfwCrsOUgAShcdzviPf9KDLV4', type:'playlist' },
+        { title: 'Beatless Dance (EP)', desc: '', id: 'OLAK5uy_lDUM318reG01f1HWfQMKxWO1R6D35K_Hg', type:'playlist' },
+        { title: 'Beatless Dreamhouse (EP)', desc: '', id: 'OLAK5uy_kG9nYKh8CHZ_kXG0QzXD32aLBI20rW88U', type:'playlist' },
+        { title: 'Beatless Hardcore (EP)', desc: '', id: 'OLAK5uy_kzVuGfZwXqp89kRxNhpTt3is3hmrJVNFM', type:'playlist' },
+        { title: 'Beatless Trance (EP)', desc: '', id: 'OLAK5uy_kTEZzb5F3RfOvkC1VhVFcyj5513Cxk5bA', type:'playlist' },
+        { title: 'Adagio (EP)', desc: '', id: 'OLAK5uy_noEVKa-PycdPup54jq5-EjvR7AUlqVdXU', type:'playlist' },
+        { title: 'Passion (EP)', desc: '', id: 'OLAK5uy_mQ8JBaVB4OL3M6ad69Nd7tnLxSpaWQOtU', type:'playlist' },
+        { title: 'Time (EP)', desc: '', id: 'OLAK5uy_nnt_8l3CvRx9emOqOM-65JuQFAYFAyHt4', type:'playlist' }
+      ];
 
-    // ---- Defaults: EPs (8) ----
-    const EPS = [
-      { key: 'ep1', title: 'Ambient Odyssey (EP)', desc: '', id: 'OLAK5uy_l-kPx2ZAjfwCrsOUgAShcdzviPf9KDLV4', type:'playlist' },
-      { key: 'ep2', title: 'Beatless Dance (EP)', desc: '', id: 'OLAK5uy_lDUM318reG01f1HWfQMKxWO1R6D35K_Hg', type:'playlist' },
-      { key: 'ep3', title: 'Beatless Dreamhouse (EP)', desc: '', id: 'OLAK5uy_kG9nYKh8CHZ_kXG0QzXD32aLBI20rW88U', type:'playlist' },
-      { key: 'ep4', title: 'Beatless Hardcore (EP)', desc: '', id: 'OLAK5uy_kzVuGfZwXqp89kRxNhpTt3is3hmrJVNFM', type:'playlist' },
-      { key: 'ep5', title: 'Beatless Trance (EP)', desc: '', id: 'OLAK5uy_kTEZzb5F3RfOvkC1VhVFcyj5513Cxk5bA', type:'playlist' },
-      { key: 'ep6', title: 'Adagio (EP)', desc: '', id: 'OLAK5uy_noEVKa-PycdPup54jq5-EjvR7AUlqVdXU', type:'playlist' },
-      { key: 'ep7', title: 'Passion (EP)', desc: '', id: 'OLAK5uy_mQ8JBaVB4OL3M6ad69Nd7tnLxSpaWQOtU', type:'playlist' },
-      { key: 'ep8', title: 'Time (EP)', desc: '', id: 'OLAK5uy_nnt_8l3CvRx9emOqOM-65JuQFAYFAyHt4', type:'playlist' }
-    ];
+      const VIDEOS = [
+        { title: 'Video 1', id: 'sOcjXdFimFg', type: 'video' },
+        { title: 'Video 2', id: 'hM2JWErpjOY', type: 'video' }
+      ];
 
-    // ---- Defaults: Videos (2) ----
-    const VIDEOS = [
-      { key: 'video1', title: 'Video 1', date: '', info: '', id: extractVideoId("https://www.youtube.com/watch?v=sOcjXdFimFg"), type: 'video' },
-      { key: 'video2', title: 'Video 2', date: '', info: '', id: extractVideoId("https://www.youtube.com/watch?v=hM2JWErpjOY"), type: 'video' }
-    ];
-
-    const SINGLES = Array.from({length:1}, (_,i)=> ({
-      key: `single${i+1}`,
-      title: `Single ${i+1}`,      // Track
-      date: '',                   // Release date
-      info: '',                   // Info
-      id: '',                     // videoId
-      
-      type: 'video'
-    }));
-    // Prefill Single 1 with earlier link
-    SINGLES[0].id = extractVideoId("https://www.youtube.com/watch?v=zsAL-63oGtU&list=OLAK5uy_mdflen2wEKN_2AKl5mhauOZalHHxJvv_Y");
-    SINGLES[0].title = "Single 1";
-
-    // ---- Helpers ----
-    function extractPlaylistId(input){
-      if(!input) return '';
-      input = String(input).trim();
-      try{ const url = new URL(input); const list = url.searchParams.get('list'); if(list) return list; } catch(e){}
-      if(/^[A-Za-z0-9_-]{16,64}$/.test(input)) return input;
-      return '';
-    }
-    function extractVideoId(input){
-      if(!input) return '';
-      input = String(input).trim();
-      try {
-        const u = new URL(input);
-        if(u.hostname.includes('youtube.com')){
-          if(u.searchParams.get('v')) return u.searchParams.get('v');
-          const m = u.pathname.match(/\/shorts\/([A-Za-z0-9_-]{6,})/);
-          if(m) return m[1];
-          const m2 = u.pathname.match(/\/embed\/([A-Za-z0-9_-]{6,})/);
-          if(m2) return m2[1];
-        }
-        if(u.hostname.includes('youtu.be')){
-          const seg = u.pathname.split('/').filter(Boolean)[0];
-          if(seg) return seg;
-        }
-      } catch(e){}
-      if(/^[A-Za-z0-9_-]{6,}$/.test(input)) return input;
-      return '';
-    }
-    function load(key, defaults){
-  if (key === STORAGE_SINGS) {
-    // Always return defaults for singles (ignore localStorage)
-    return JSON.parse(JSON.stringify(defaults));
-  }
-  const raw = localStorage.getItem(key);
-  let data = null;
-  try{ data = raw ? JSON.parse(raw) : null; } catch(e){ data = null; }
-  if(!data || !Array.isArray(data) || data.length !== defaults.length){
-    return JSON.parse(JSON.stringify(defaults));
-  }
-  return data.map((x, i)=> {
-    const base = { 
-      key: defaults[i]?.key || `item${i+1}`,
-      id: x.id || '',
-      img: '', // singles ignore, albums/eps may use
-      type: defaults[i]?.type || 'playlist'
-    };
-    if(base.type === 'video'){
-      return {
-        ...base,
-        title: x.title || defaults[i]?.title || `Single ${i+1}`,
-        date: x.date || '',
-        info: x.info || ''
-      };
-    } else {
-      return {
-        ...base,
-        title: x.title || defaults[i]?.title || `Item ${i+1}`,
-        desc: x.desc || defaults[i]?.desc || '',
-        img: x.img || defaults[i]?.img || ''
-      };
-    }
-  });
-}
-
-function embedUrlPlaylist(id){ return `https://www.youtube.com/embed/videoseries?rel=0&list=${encodeURIComponent(id)}`; }
-    function embedUrlVideo(id){ return `https://www.youtube.com/embed/${encodeURIComponent(id)}?rel=0`; }
-
-    function buildRow(item, storeKey, defaults){
-      const node = rowTpl.content.firstElementChild.cloneNode(true);
-      node.dataset.key = item.key;
-                  const metaAlbEp = node.querySelector('[data-meta-albumeps]');
-      const metaSingles = node.querySelector('[data-meta-singles]');
-      const tracktext = node.querySelector('[data-tracktext]');
-      const releasedate = node.querySelector('[data-releasedate]');
-      const infotext = node.querySelector('[data-infotext]');
-      const titleH = node.querySelector('[data-title]');
-      const descP = node.querySelector('[data-desc]');
-      const frame = node.querySelector('[data-frame]');
-
-      if(item.type === 'video'){
-        // Singles: no image, left text-only
-                metaAlbEp.classList.add('hidden');
-        metaSingles.classList.remove('hidden');
-
-        tracktext.textContent = item.title || '—';
-        releasedate.textContent = item.date || '—';
-        infotext.textContent = item.info || '—';
-
-        frame.src = item.id ? `https://www.youtube.com/embed/${encodeURIComponent(item.id)}?rel=0` : '';
-      } else {
-        // Albums/EPs
-                metaAlbEp.classList.remove('hidden');
-        metaSingles.classList.add('hidden');
-
-        titleH.textContent = item.title || '';
-        descP.textContent = item.desc || '';
-        
-        frame.src = item.id ? `https://www.youtube.com/embed/videoseries?rel=0&list=${encodeURIComponent(item.id)}` : '';
-      }
-
-      return node;
-    }
-    const SINGLE_DATA_EXCEL = [
+      const SINGLE_DATA_EXCEL = [
   {title: "Freedom", date: "12-1996", url: "https://www.youtube.com/watch?v=AYrWRq5AxKE&list=RDAYrWRq5AxKE&start_radio=1"},
   {title: "Forever yours", date: "02-1997", url: "https://www.youtube.com/watch?v=q4_fKqEUfuE&list=OLAK5uy_lxL2kbrH3OaXv0hvmVWftFAA7r6R5g56c"},
   {title: "Experiment", date: "03-1997", url: "https://www.youtube.com/watch?v=zsAL-63oGtU&list=OLAK5uy_mdflen2wEKN_2AKl5mhauOZalHHxJvv_Y"},
@@ -340,83 +192,100 @@ function embedUrlPlaylist(id){ return `https://www.youtube.com/embed/videoseries
   {title: "Synthesized", date: "03-2006", url: "https://www.youtube.com/watch?v=4exPp91gX8I&list=OLAK5uy_kyZ0W4PVDvVoivwc-9kPW4q1FBtXw7f7U"},
   {title: "Technology", date: "10-2008", url: "https://www.youtube.com/watch?v=eitHLmtKLKs&list=OLAK5uy_n5sk-aFZwDfBbMV2aIeZynIdz8jc4k4u8"},
   {title: "Hardnoise", date: "05-2010", url: "https://www.youtube.com/watch?v=jLRPZHqopso&list=OLAK5uy_kAXOj3j0RyywBxWEoYfxeBijDDAlba70c"},
-  {title: "Elysium", date: "06-2010", url: "https://www.youtube.com/watch?v=F6b-bs781YM&list=OLAK5uy_lrKxEFtculTacJeXrPUbow59YqwvBACHk"},
+  {title: "Elysium", date: "06-2010", url: "https://www.youtube.com/watch?v=F6b-bs781YM&list=OLAK5uy_lrKxEFtculTacJeXrPUbow59YqwvBACHk"}
 ];
 
+      function extractVideoIdClient(input){
+        if(!input) return '';
+        input = String(input).trim();
+        try {
+          const u = new URL(input);
+          if(u.hostname.includes('youtube.com')){
+            if(u.searchParams.get('v')) return u.searchParams.get('v');
+            const m = u.pathname.match(/\/shorts\/([A-Za-z0-9_-]{6,})/);
+            if(m) return m[1];
+            const m2 = u.pathname.match(/\/embed\/([A-Za-z0-9_-]{6,})/);
+            if(m2) return m2[1];
+          }
+          if(u.hostname.includes('youtu.be')){
+            const seg = u.pathname.split('/').filter(Boolean)[0];
+            if(seg) return seg;
+          }
+        } catch(e){}
+        const plain = input.match(/^[A-Za-z0-9_-]{6,}$/);
+        return plain ? plain[0] : '';
+      }
 
-function extractVideoIdClient(input){
-  if(!input) return '';
-  input = String(input).trim();
-  try {
-    const u = new URL(input);
-    if(u.hostname.includes('youtube.com')){
-      if(u.searchParams.get('v')) return u.searchParams.get('v');
-      const m = u.pathname.match(/\/shorts\/([A-Za-z0-9_-]{6,})/);
-      if(m) return m[1];
-      const m2 = u.pathname.match(/\/embed\/([A-Za-z0-9_-]{6,})/);
-      if(m2) return m2[1];
-    }
-    if(u.hostname.includes('youtu.be')){
-      const seg = u.pathname.split('/').filter(Boolean)[0];
-      if(seg) return seg;
-    }
-  } catch(e){}
-  const plain = input.match(/^[A-Za-z0-9_-]{6,}$/);
-  return plain ? plain[0] : '';
-}
+      function buildRow(item){
+        const tpl = byId('rowTpl');
+        if(!tpl) return document.createTextNode('');
+        const node = tpl.content.firstElementChild.cloneNode(true);
+        node.querySelector('[data-title]').textContent = safe(item.title);
+        node.querySelector('[data-desc]').textContent = safe(item.desc);
+        const frame = node.querySelector('[data-frame]');
+        if(item.type === 'playlist'){
+          frame.src = item.id ? `https://www.youtube.com/embed/videoseries?rel=0&list=${encodeURIComponent(item.id)}` : '';
+        } else if(item.type === 'video'){
+          frame.src = item.id ? `https://www.youtube.com/embed/${encodeURIComponent(item.id)}?rel=0` : '';
+        } else {
+          frame.src = '';
+        }
+        return node;
+      }
 
-function renderSinglesExcel(){
-  const container = document.getElementById('singleListExcel');
-  if(!container) return;
-  container.innerHTML = '';
-  SINGLE_DATA_EXCEL.forEach((s, idx)=>{
-    const id = extractVideoIdClient(s.url || '');
-    const section = document.createElement('section');
-    section.className = "rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/60 p-4";
-    section.innerHTML = `
-      <div class="flex flex-col md:flex-row gap-4 md:gap-6 items-stretch">
-        <div class="md:w-5/12 lg:w-4/12 flex flex-col gap-2">
-          <div class="space-y-1">
-            <h3 class="text-lg font-semibold">${idx+1}. ${s.title || '—'}</h3>
-            <p class="text-xs text-neutral-500">${s.date || ''}</p>
-          </div>
-        </div>
-        <div class="md:w-7/12 lg:w-8/12">
-          <div class="ratio-16x9 bg-neutral-200/50 dark:bg-neutral-800/50 rounded-xl overflow-hidden">
-            ${id ? `<iframe src="https://www.youtube.com/embed/${encodeURIComponent(id)}?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="YouTube"></iframe>` : `<div class="h-full w-full flex items-center justify-center text-neutral-500 text-sm">No video link</div>`}
-          </div>
-        </div>
-      </div>
-    `;
-    container.appendChild(section);
-  });
-}
+      function renderSinglesExcel(){
+        const container = byId('singleListExcel');
+        if(!container) return;
+        container.innerHTML = '';
+        SINGLE_DATA_EXCEL.forEach((s, idx)=>{
+          const id = extractVideoIdClient(s.url || '');
+          const section = document.createElement('section');
+          section.className = "rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/60 p-4";
+          section.innerHTML = `
+            <div class="flex flex-col md:flex-row gap-4 md:gap-6 items-stretch">
+              <div class="md:w-5/12 lg:w-4/12 flex flex-col gap-2">
+                <div class="space-y-1">
+                  <h3 class="text-lg font-semibold">${idx+1}. ${s.title || '—'}</h3>
+                  <p class="text-xs text-neutral-500">Release date: ${s.date || ''}</p>
+                </div>
+              </div>
+              <div class="md:w-7/12 lg:w-8/12">
+                <div class="ratio-16x9 bg-neutral-200/50 dark:bg-neutral-800/50 rounded-xl overflow-hidden">
+                  ${id ? `<iframe src="https://www.youtube.com/embed/${encodeURIComponent(id)}?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="YouTube"></iframe>` : `<div class="h-full w-full flex items-center justify-center text-neutral-500 text-sm">No video link</div>`}
+                </div>
+              </div>
+            </div>`;
+          container.appendChild(section);
+        });
+      }
 
-function render(){
-      const albumData = load(STORAGE_ALBUMS, ALBUMS);
-      const epData = load(STORAGE_EPS, EPS);
-      const singleData = load(STORAGE_SINGS, SINGLES);
-      const albumList = byId('albumList');
-      const epList = byId('epList');
-      const singleList = byId('singleList');
-      albumList.innerHTML = '';
-      epList.innerHTML = '';
-      singleList.innerHTML = '';
-      const videoData = load(STORAGE_VIDS, VIDEOS);
-      const videoList = byId('videoList');
-      videoList.innerHTML = '';
-      albumData.forEach(item => albumList.appendChild(buildRow(item, STORAGE_ALBUMS, ALBUMS)));
-      epData.forEach(item => epList.appendChild(buildRow(item, STORAGE_EPS, EPS)));
-      singleData.forEach(item => singleList.appendChild(buildRow(item, STORAGE_SINGS, SINGLES)));
-      videoData.forEach(item => videoList.appendChild(buildRow(item, STORAGE_VIDS, VIDEOS)));
-    }
+      function render(){
+        const albumList = byId('albumList');
+        const epList = byId('epList');
+        const videoList = byId('videoList');
+        if(albumList){ albumList.innerHTML = ''; ALBUMS.forEach(item => albumList.appendChild(buildRow(item))); }
+        if(epList){ epList.innerHTML = ''; EPS.forEach(item => epList.appendChild(buildRow(item))); }
+        if(videoList){ videoList.innerHTML = ''; VIDEOS.forEach(item => videoList.appendChild(buildRow(item))); }
+      }
 
-    document.addEventListener('DOMContentLoaded', ()=>{
-      byId('year').textContent = new Date().getFullYear();
-      renderSinglesExcel();
-      try { localStorage.removeItem('northsnd_singles_all_v2'); } catch(e) {}
-      render();
-    });
+      document.addEventListener('DOMContentLoaded', ()=>{
+        try {
+          setYear();
+          renderSinglesExcel();
+          render();
+        } catch(err){
+          console.error('Render error', err);
+          // visuele fallback
+          const main = document.querySelector('main');
+          if(main){
+            const box = document.createElement('div');
+            box.className = 'mx-auto max-w-3xl p-4 rounded-xl bg-red-50 border border-red-200 text-red-900';
+            box.textContent = 'Er ging iets mis met laden van de content.';
+            main.prepend(box);
+          }
+        }
+      });
+    })();
   </script>
 </body>
 </html>
