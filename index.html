@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Northsnd — Playlists</title>
-  <meta name="description" content="Northsnd: muziekproject website met YouTube-playlists. Voeg je eigen playlists toe en speel ze direct af." />
+  <title>Northsnd — Albums, EP's & Singles (v2)</title>
+  <meta name="description" content="Northsnd: Albums, EP's en Singles. Singles tonen links tekst (Track / Release date / Info), rechts de YouTube-player." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,323 +12,398 @@
   <style>
     :root{ color-scheme: dark light; }
     html { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif; }
-    /* Responsive 16:9 iframe wrapper */
     .ratio-16x9 { position: relative; width: 100%; padding-bottom: 56.25%; }
     .ratio-16x9 iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; border-radius: 1rem; }
-    /* Nice scrollbar for playlist list */
-    .scrollbar::-webkit-scrollbar{ height:8px; }
-    .scrollbar::-webkit-scrollbar-thumb{ background: #a3a3a3; border-radius: 999px; }
+    .artwrap { position: relative; aspect-ratio: 1 / 1; }
+    .artwrap img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:1rem; }
+    .kv { display:grid; grid-template-columns: 120px 1fr; gap:.25rem .5rem; }
+    .kv dt { color: rgb(115 115 115); font-size:.75rem; }
+    .kv dd { font-weight: 600; font-size:.95rem; }
+    .section-spacing { margin-top: 3.5rem; }
+  
+    .hero img{display:block;width:100%;height:auto;}
+
   </style>
 </head>
 <body class="bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
-  <!-- HEADER -->
-  <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 bg-white/80 dark:bg-neutral-950/70 border-b border-neutral-200/60 dark:border-neutral-800">
-    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center gap-4">
-      <div class="flex items-center gap-3">
-        <div class="h-10 w-10 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-400 shadow-lg"></div>
-        <div>
-          <h1 class="text-xl font-extrabold tracking-tight">Northsnd</h1>
-          <p class="text-xs text-neutral-500 -mt-1">Playlists • Live • Releases</p>
-        </div>
+  \1
+
+  <figure class="w-full">
+    <img src="ChatGPT Image 3 okt 2025, 12_00_13.png" alt="Northsnd Schoolwork banner" style="width:100%;height:auto;display:block;border:0;"/>
+  </figure>
+
+    
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6">
+      <p class="text-xl sm:text-2xl text-neutral-700 dark:text-neutral-300 leading-relaxed text-center max-w-3xl mx-auto">Northsnd revisits his formative years in music with ‘Schoolwork’, a five-part retrospective spanning 100 tracks produced between 1996 and 2014. Moving from happy hardcore and dreamhouse to trance and techno, the project captures both his personal and musical growth during the pre-internet era. Now fully remastered with modern tools, including A.I., ‘Schoolwork’ breathes new life into his teenage creations and frames them for today’s listeners.<br><br>The project comprises 5 albums (100 tracks in total), alongside 2 compilation albums, 1 remix album, 8 EPs, and 60 singles, making Schoolwork one of the most extensive archival releases in electronic music.</p>
+    </div>
+
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10">
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <a href="#albums" class="px-4 py-2 rounded-xl bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-semibold">Albums</a>
+        <a href="#eps" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">EP's</a>
+        <a href="#singles" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">Singles</a>
+        <a href="#videos" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">Video's</a>
+        <button id="resetAll" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">Alles wissen</button>
       </div>
-      <nav class="ml-auto flex items-center gap-3 text-sm">
-        <a href="#play" class="px-3 py-1.5 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800">Afspelen</a>
-        <a href="#manage" class="px-3 py-1.5 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800">Playlists beheren</a>
-        <a href="#about" class="px-3 py-1.5 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800">Over</a>
-      </nav>
     </div>
   </header>
 
-  <!-- HERO / PLAYER -->
-  <main id="play" class="mx-auto max-w-6xl px-4 py-10 space-y-10">
-    <section class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
-      <div class="lg:col-span-3 space-y-4">
-        <h2 class="text-2xl font-bold">Nu afspelen</h2>
-        <div id="playerWrap" class="ratio-16x9 bg-neutral-200/50 dark:bg-neutral-900/50 flex items-center justify-center rounded-2xl">
-          <iframe id="ytFrame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="YouTube Playlist"></iframe>
-        </div>
-        <div class="flex items-center justify-between">
-          <div>
-            <p id="activeTitle" class="font-semibold"></p>
-            <p id="activeId" class="text-xs text-neutral-500"></p>
-          </div>
-          <button id="openInYouTube" class="text-sm px-3 py-1.5 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-medium disabled:opacity-40" disabled type="button">Open op YouTube</button>
-        </div>
-      </div>
-
-      <!-- QUICK ADD / MANAGE SIDEBAR -->
-      <aside id="manage" class="lg:col-span-2 space-y-6">
-        <div class="p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/60">
-          <h3 class="text-lg font-semibold mb-2">Playlist toevoegen</h3>
-          <p class="text-sm text-neutral-500 mb-4">Plak een YouTube playlist-URL of -ID. Geef eventueel een naam. Voorbeeld URL: <span class="font-mono">https://www.youtube.com/playlist?list=...</span></p>
-          <form id="addForm" class="grid gap-2" novalidate>
-            <label class="text-sm font-medium" for="plInput">Playlist URL of ID</label>
-            <input id="plInput" type="text" required placeholder="https://www.youtube.com/playlist?list=PL... of bv. PLxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" class="px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900" />
-            <label class="text-sm font-medium mt-2" for="plName">Naam (optioneel)</label>
-            <input id="plName" type="text" placeholder="Bijv. Northsnd — Live Sets" class="px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900" />
-            <div class="flex gap-2 mt-3">
-              <button class="px-4 py-2 rounded-xl bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-semibold" type="submit">Toevoegen</button>
-              <button id="clearBtn" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700" type="button">Alles wissen</button>
-            </div>
-          </form>
-        </div>
-
-        <div class="p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/60">
-          <div class="flex items-center justify-between mb-2">
-            <h3 class="text-lg font-semibold">Mijn playlists</h3>
-            <span id="countBadge" class="text-xs px-2 py-1 rounded-full bg-neutral-200 dark:bg-neutral-800">0</span>
-          </div>
-          <div id="playlistRow" class="scrollbar overflow-x-auto flex gap-3 py-2"></div>
-        </div>
-      </aside>
+  <main class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10">
+    <!-- Albums -->
+    <section id="albums">
+      <h2 class="text-2xl font-bold mb-6">Albums</h2>
+      <div id="albumList" class="space-y-8"></div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="grid md:grid-cols-3 gap-8 items-start">
-      <div class="md:col-span-2 space-y-3">
-        <h2 class="text-2xl font-bold">Over Northsnd</h2>
-        <p class="text-neutral-600 dark:text-neutral-400">Northsnd is een elektronisch muziekproject met focus op melodische techno, progressive house en atmosferische soundscapes. Op deze site beheer en speel je YouTube‑playlists: releases, livesets, radioshows en inspiratie.</p>
-        <ul class="list-disc ml-6 text-neutral-700 dark:text-neutral-300">
-          <li>Voeg oneindig veel YouTube‑playlists toe zonder API‑sleutels.</li>
-          <li>Sla je lijst lokaal op via <em>localStorage</em> (blijft op dit apparaat).</li>
-          <li>Schakel direct tussen playlists met één klik.</li>
-        </ul>
-      </div>
-      <div class="p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/60">
-        <h3 class="font-semibold mb-2">Tip</h3>
-        <p class="text-sm text-neutral-500">Je kunt zowel een volledige URL plakken als alleen het playlist‑ID (meestal begint met <span class="font-mono">PL</span>, <span class="font-mono">UU</span> of <span class="font-mono">OLAK5uy_...</span>).</p>
-      </div>
+    <!-- EPs -->
+    <section id="eps" class="section-spacing">
+      <h2 class="text-2xl font-bold mb-6">EP's</h2>
+      <div id="epList" class="space-y-8"></div>
+    </section>
+
+    <!-- Singles -->
+    <section id="singles" class="section-spacing">
+      <h2 class="text-2xl font-bold mb-6">Singles</h2>
+      <div id="singleList" class="space-y-8"></div>
+    </section>
+
+    <!-- Videos -->
+    <section id="videos" class="section-spacing">
+      <h2 class="text-2xl font-bold mb-6">Video's</h2>
+      <div id="videoList" class="space-y-8"></div>
     </section>
   </main>
 
   <footer class="border-t border-neutral-200 dark:border-neutral-800">
-    <div class="mx-auto max-w-6xl px-4 py-8 text-sm text-neutral-500 flex items-center justify-between">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8 text-sm text-neutral-500 flex items-center justify-between">
       <p>© <span id="year"></span> Northsnd</p>
       <div class="flex gap-4">
-        <a class="hover:underline" href="#">Instagram</a>
-        <a class="hover:underline" href="#">YouTube</a>
-        <a class="hover:underline" href="#">Contact</a>
+        <a class="hover:underline" href="#albums">Albums</a>
+        <a class="hover:underline" href="#eps">EP's</a>
+        <a class="hover:underline" href="#singles">Singles</a>
+        <a class="hover:underline" href="#videos">Video's</a>
+        <a href="#videos" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">Video's</a>
       </div>
     </div>
   </footer>
 
-  <!--
-    CARD TEMPLATE
-    Fix: outer wrapper is now a DIV instead of a BUTTON to avoid invalid nested <button> elements,
-    which caused Safari/WebKit to drop inner buttons and led to null querySelector results.
-  -->
-  <template id="cardTpl">
-    <div class="group shrink-0 w-56 text-left cursor-pointer" data-card tabindex="0" role="button" aria-label="Playlist kaart">
-      <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/60 p-4 hover:border-neutral-300 hover:shadow-sm transition">
-        <div class="aspect-video rounded-xl bg-neutral-200/60 dark:bg-neutral-800/60 grid place-items-center text-xs text-neutral-500">
-          <span class="group-data-[active=true]:hidden">YouTube Playlist</span>
-          <span class="hidden group-data-[active=true]:block font-semibold">Actief</span>
+  <!-- Card Template (shared) -->
+  <template id="rowTpl">
+    <section class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/60 p-4" data-card>
+      <div class="flex flex-col md:flex-row gap-4 md:gap-6 items-stretch">
+        <!-- LEFT: For albums/eps: art + title/desc; for singles: text-only fields -->
+        <div class="md:w-5/12 lg:w-4/12 flex flex-col gap-3">
+          <div class="artwrap bg-gradient-to-br from-neutral-200 to-neutral-300 dark:from-neutral-800 dark:to-neutral-700" data-artwrap>
+            <img data-art alt="Artwork" />
+          </div>
+          <div class="space-y-1" data-meta-albumeps>
+            <h3 class="text-lg font-semibold" data-title>Title</h3>
+            <p class="text-xs text-neutral-500" data-desc>Beschrijving</p>
+          </div>
+
+          <!-- Singles-only meta (text labels + values) -->
+          <dl class="kv hidden" data-meta-singles>
+            <dt>Track:</dt>        <dd data-tracktext>—</dd>
+            <dt>Release date:</dt> <dd data-releasedate>—</dd>
+            <dt>Info:</dt>         <dd data-infotext>—</dd>
+          </dl>
+
+          <div class="flex gap-2">
+            <button class="text-xs px-2 py-1 rounded-lg border border-neutral-300 dark:border-neutral-700" data-config type="button">Instellen</button>
+            <button class="text-xs px-2 py-1 rounded-lg border border-neutral-300 dark:border-neutral-700" data-clear type="button">Leegmaken</button>
+          </div>
         </div>
-        <div class="mt-3">
-          <p class="font-semibold truncate" data-title>Naamloze playlist</p>
-          <p class="text-xs text-neutral-500 font-mono truncate" data-id>ID</p>
-        </div>
-        <div class="mt-3 flex items-center justify-between">
-          <span class="text-xs px-2 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800" data-count>—</span>
-          <div class="flex gap-1">
-            <button class="text-xs px-2 py-1 rounded-lg border border-neutral-300 dark:border-neutral-700" data-open type="button">Open</button>
-            <button class="text-xs px-2 py-1 rounded-lg border border-red-300 text-red-600 dark:border-red-700" data-del type="button">Verwijder</button>
+
+        <!-- RIGHT: Player -->
+        <div class="md:w-7/12 lg:w-8/12">
+          <div class="ratio-16x9 bg-neutral-200/50 dark:bg-neutral-800/50 rounded-xl overflow-hidden">
+            <iframe data-frame allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="YouTube"></iframe>
           </div>
         </div>
       </div>
-    </div>
+
+      <!-- Config panel -->
+      <div class="hidden mt-4 flex flex-col gap-2" data-panel>
+        <label class="text-xs font-medium" data-input-label>YouTube URL of ID</label>
+        <input data-input type="text" placeholder="" class="px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900" />
+        <div class="grid md:grid-cols-3 gap-2">
+          <input data-title-input type="text" placeholder="" class="px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900" />
+          <input data-date-input type="date" class="px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 hidden" />
+          <input data-desc-input type="text" placeholder="" class="px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900" />
+        </div>
+        <div class="grid md:grid-cols-3 gap-2">
+          <input data-img-input type="url" placeholder="Afbeelding‑URL (alleen voor Albums/EP's)" class="px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900" />
+          <div></div><div></div>
+        </div>
+        <div class="flex gap-2">
+          <button data-save class="px-3 py-2 rounded-xl bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 text-sm font-semibold" type="button">Opslaan</button>
+        </div>
+      </div>
+    </section>
   </template>
 
   <script>
     const byId = (id) => document.getElementById(id);
-    const tpl = byId('cardTpl');
-    const frame = byId('ytFrame');
-    const activeTitle = byId('activeTitle');
-    const activeId = byId('activeId');
-    const openBtn = byId('openInYouTube');
-    const row = byId('playlistRow');
-    const countBadge = byId('countBadge');
+    const rowTpl = byId('rowTpl');
 
-    const STORAGE_KEY = 'northsnd_playlists_v1';
+    // ---- Storage keys ----
+    const STORAGE_ALBUMS = 'northsnd_albums_all_v2';
+    const STORAGE_EPS    = 'northsnd_eps_all_v2';
+    const STORAGE_SINGS  = 'northsnd_singles_all_v2';
+    const STORAGE_VIDS   = 'northsnd_videos_all_v1';
 
+    // ---- Defaults: Albums (9) ----
+    const ALBUMS = [
+      { key: 'album1', title: 'Schoolwork Vol.1: Experiment', desc: 'De aftrap van de serie', id: 'OLAK5uy_m4tokCTFFIPH6mJgsCAw5gUtqdsfFmrhg', img: 'SW1.png', type:'playlist' },
+      { key: 'album2', title: 'Schoolwork Vol.2: Experience', desc: 'Vervolg met nieuwe sounds', id: 'OLAK5uy_l1SpJ2A45XndQ_P3_8DguCsFyHOLg67rQ', img: 'SW2.png', type:'playlist' },
+      { key: 'album3', title: 'Schoolwork Vol.3: Expedition', desc: 'Op ontdekking in sound', id: 'OLAK5uy_noouP06YTET5_SDssBEIA_5PxPlizQ2Qw', img: 'SW3.png', type:'playlist' },
+      { key: 'album4', title: 'Schoolwork Vol.4: Exploration', desc: 'Verder de diepte in', id: 'OLAK5uy_kgZVvQVhsJ8c9dwOZq3ma8-Rk2Q9Si5-g', img: 'SW4.png', type:'playlist' },
+      { key: 'album5', title: 'Schoolwork Vol.5: Expression', desc: 'Expressieve climax', id: 'OLAK5uy_m1bRKRArY9XIL-_buiZCSl9s98yXWM6xE', img: 'SW5.png', type:'playlist' },
+      { key: 'album6', title: 'Once Upon a Lifetime', desc: 'Singles Collection', id: 'OLAK5uy_lnZoZpuWniE0zzFIcxB82l1-27FysUZDk', img: 'once4.png', type:'playlist' },
+      { key: 'album7', title: 'Ambience', desc: 'Schoolwork Ambient Remixes', id: 'OLAK5uy_kKKd5Z4ed2x8m0FR0kIWs-Am9KaG6cWaY', img: 'ambbbnew2.png', type:'playlist' },
+      { key: 'album8', title: 'Extended Memories', desc: 'The Very Best of Schoolwork', id: 'OLAK5uy_lZRfJMAjIzTYHfMPkYakvJpcbqPgKFlB0', img: 'bestof2.png', type:'playlist' },
+      { key: 'album9', title: 'Redemption: Legacy', desc: 'Best of 2000–2025 (Northsnd & Megapete)', id: 'OLAK5uy_kCqZSxa37lgrJdp2fJyYKXIdBUBwGP3JU', img: 'legdef.png', type:'playlist' }
+    ];
+
+    // ---- Defaults: EPs (8) ----
+    const EPS = [
+      { key: 'ep1', title: 'Ambient Odyssey (EP)', desc: '', id: 'OLAK5uy_l-kPx2ZAjfwCrsOUgAShcdzviPf9KDLV4', img: 'ao.png', type:'playlist' },
+      { key: 'ep2', title: 'Beatless Dance (EP)', desc: '', id: 'OLAK5uy_lDUM318reG01f1HWfQMKxWO1R6D35K_Hg', img: 'beat1.png', type:'playlist' },
+      { key: 'ep3', title: 'Beatless Dreamhouse (EP)', desc: '', id: 'OLAK5uy_kG9nYKh8CHZ_kXG0QzXD32aLBI20rW88U', img: 'beat2.png', type:'playlist' },
+      { key: 'ep4', title: 'Beatless Hardcore (EP)', desc: '', id: 'OLAK5uy_kzVuGfZwXqp89kRxNhpTt3is3hmrJVNFM', img: 'beat4.png', type:'playlist' },
+      { key: 'ep5', title: 'Beatless Trance (EP)', desc: '', id: 'OLAK5uy_kTEZzb5F3RfOvkC1VhVFcyj5513Cxk5bA', img: 'beat5.png', type:'playlist' },
+      { key: 'ep6', title: 'Adagio (EP)', desc: '', id: 'OLAK5uy_noEVKa-PycdPup54jq5-EjvR7AUlqVdXU', img: 'adagio ep.png', type:'playlist' },
+      { key: 'ep7', title: 'Passion (EP)', desc: '', id: 'OLAK5uy_mQ8JBaVB4OL3M6ad69Nd7tnLxSpaWQOtU', img: 'passionep.png', type:'playlist' },
+      { key: 'ep8', title: 'Time (EP)', desc: '', id: 'OLAK5uy_nnt_8l3CvRx9emOqOM-65JuQFAYFAyHt4', img: 'timeep.png', type:'playlist' }
+    ];
+
+    // ---- Defaults: Singles (60) ----
+    // ---- Defaults: Videos (2) ----
+    const VIDEOS = [
+      { key: 'video1', title: 'Video 1', date: '', info: '', id: extractVideoId("https://www.youtube.com/watch?v=sOcjXdFimFg"), type: 'video' },
+      { key: 'video2', title: 'Video 2', date: '', info: '', id: extractVideoId("https://www.youtube.com/watch?v=hM2JWErpjOY"), type: 'video' }
+    ];
+
+    const SINGLES = Array.from({length:60}, (_,i)=> ({
+      key: `single${i+1}`,
+      title: `Single ${i+1}`,      // Track
+      date: '',                   // Release date
+      info: '',                   // Info
+      id: '',                     // videoId
+      img: '',                    // not used (ignored)
+      type: 'video'
+    }));
+    // Prefill Single 1 with earlier link
+    SINGLES[0].id = extractVideoId("https://www.youtube.com/watch?v=zsAL-63oGtU&list=OLAK5uy_mdflen2wEKN_2AKl5mhauOZalHHxJvv_Y");
+    SINGLES[0].title = "Single 1";
+
+    // ---- Helpers ----
     function extractPlaylistId(input){
       if(!input) return '';
-      input = input.trim();
-      // If it's a full URL with list=
+      input = String(input).trim();
       try{ const url = new URL(input); const list = url.searchParams.get('list'); if(list) return list; } catch(e){}
-      // If it's already an ID (common IDs start with PL/UU/RD/OLAK5uy_)
       if(/^[A-Za-z0-9_-]{16,64}$/.test(input)) return input;
       return '';
     }
-
-    function load(){
-      const raw = localStorage.getItem(STORAGE_KEY);
-      let arr = [];
-      try{ arr = raw ? JSON.parse(raw) : []; }catch(e){ arr = []; }
-      return Array.isArray(arr) ? arr : [];
+    function extractVideoId(input){
+      if(!input) return '';
+      input = String(input).trim();
+      try {
+        const u = new URL(input);
+        if(u.hostname.includes('youtube.com')){
+          if(u.searchParams.get('v')) return u.searchParams.get('v');
+          const m = u.pathname.match(/\/shorts\/([A-Za-z0-9_-]{6,})/);
+          if(m) return m[1];
+          const m2 = u.pathname.match(/\/embed\/([A-Za-z0-9_-]{6,})/);
+          if(m2) return m2[1];
+        }
+        if(u.hostname.includes('youtu.be')){
+          const seg = u.pathname.split('/').filter(Boolean)[0];
+          if(seg) return seg;
+        }
+      } catch(e){}
+      if(/^[A-Za-z0-9_-]{6,}$/.test(input)) return input;
+      return '';
     }
-    function save(arr){ localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
-
-    function setActive(pl){
-      if(!pl) return;
-      const src = `https://www.youtube.com/embed/videoseries?rel=0&list=${encodeURIComponent(pl.id)}`;
-      frame.src = src;
-      frame.title = pl.title || 'YouTube Playlist';
-      activeTitle.textContent = pl.title || 'Naamloze playlist';
-      activeId.textContent = pl.id;
-      openBtn.disabled = false;
-      openBtn.onclick = () => window.open(`https://www.youtube.com/playlist?list=${encodeURIComponent(pl.id)}`, '_blank');
-      // Mark active in UI
-      for(const card of row.querySelectorAll('[data-card]')){
-        const id = card.dataset.id;
-        card.dataset.active = id === pl.id ? 'true' : 'false';
+    function load(key, defaults){
+      const raw = localStorage.getItem(key);
+      let data = null;
+      try{ data = raw ? JSON.parse(raw) : null; } catch(e){ data = null; }
+      if(!data || !Array.isArray(data) || data.length !== defaults.length){
+        return JSON.parse(JSON.stringify(defaults));
       }
+      return data.map((x, i)=> {
+        const base = { 
+          key: defaults[i]?.key || `item${i+1}`,
+          id: x.id || '',
+          img: '', // singles ignore, albums/eps may use
+          type: defaults[i]?.type || 'playlist'
+        };
+        if(base.type === 'video'){
+          return {
+            ...base,
+            title: x.title || defaults[i]?.title || `Single ${i+1}`,
+            date: x.date || '',
+            info: x.info || ''
+          };
+        } else {
+          return {
+            ...base,
+            title: x.title || defaults[i]?.title || `Item ${i+1}`,
+            desc: x.desc || defaults[i]?.desc || '',
+            img: x.img || defaults[i]?.img || ''
+          };
+        }
+      });
+    }
+    function save(key, arr){ localStorage.setItem(key, JSON.stringify(arr)); }
+
+    function embedUrlPlaylist(id){ return `https://www.youtube.com/embed/videoseries?rel=0&list=${encodeURIComponent(id)}`; }
+    function embedUrlVideo(id){ return `https://www.youtube.com/embed/${encodeURIComponent(id)}?rel=0`; }
+
+    function buildRow(item, storeKey, defaults){
+      const node = rowTpl.content.firstElementChild.cloneNode(true);
+      node.dataset.key = item.key;
+      const artwrap = node.querySelector('[data-artwrap]');
+      const art = node.querySelector('[data-art]');
+      const metaAlbEp = node.querySelector('[data-meta-albumeps]');
+      const metaSingles = node.querySelector('[data-meta-singles]');
+      const tracktext = node.querySelector('[data-tracktext]');
+      const releasedate = node.querySelector('[data-releasedate]');
+      const infotext = node.querySelector('[data-infotext]');
+      const titleH = node.querySelector('[data-title]');
+      const descP = node.querySelector('[data-desc]');
+      const frame = node.querySelector('[data-frame]');
+      const panel = node.querySelector('[data-panel]');
+      const cfgBtn = node.querySelector('[data-config]');
+      const clrBtn = node.querySelector('[data-clear]');
+
+      const inputLabel = node.querySelector('[data-input-label]');
+      const input = node.querySelector('[data-input]');
+      const titleInput = node.querySelector('[data-title-input]');
+      const dateInput = node.querySelector('[data-date-input]');
+      const descInput = node.querySelector('[data-desc-input]');
+      const imgInput = node.querySelector('[data-img-input]');
+
+      if(item.type === 'video'){
+        // Singles: no image, left text-only
+        artwrap.classList.add('hidden');
+        metaAlbEp.classList.add('hidden');
+        metaSingles.classList.remove('hidden');
+
+        tracktext.textContent = item.title || '—';
+        releasedate.textContent = item.date || '—';
+        infotext.textContent = item.info || '—';
+
+        frame.src = item.id ? embedUrlVideo(item.id) : '';
+
+        inputLabel.textContent = 'YouTube video‑URL of ID';
+        input.placeholder = 'https://www.youtube.com/watch?v=... of alleen het ID';
+        input.value = item.id ? `https://www.youtube.com/watch?v=${item.id}` : '';
+
+        titleInput.placeholder = 'Track';
+        titleInput.value = item.title || '';
+        dateInput.classList.remove('hidden');
+        dateInput.value = item.date || '';
+        descInput.placeholder = 'Info';
+        descInput.value = item.info || '';
+        imgInput.value = ''; // ignored
+        imgInput.disabled = true;
+      } else {
+        // Albums/EPs
+        artwrap.classList.remove('hidden');
+        metaAlbEp.classList.remove('hidden');
+        metaSingles.classList.add('hidden');
+
+        titleH.textContent = item.title || '';
+        descP.textContent = item.desc || '';
+        if(item.img){ art.src = item.img; } else { art.removeAttribute('src'); }
+        frame.src = item.id ? embedUrlPlaylist(item.id) : '';
+
+        inputLabel.textContent = 'YouTube playlist‑URL of ID';
+        input.placeholder = 'https://www.youtube.com/playlist?list=... of alleen het ID';
+        input.value = item.id ? `https://www.youtube.com/playlist?list=${item.id}` : '';
+
+        titleInput.placeholder = 'Titel';
+        titleInput.value = item.title || '';
+        dateInput.classList.add('hidden');
+        descInput.placeholder = 'Beschrijving';
+        descInput.value = item.desc || '';
+        imgInput.disabled = false;
+        imgInput.value = item.img || '';
+      }
+
+      cfgBtn.addEventListener('click', ()=> panel.classList.toggle('hidden'));
+      clrBtn.addEventListener('click', ()=>{
+        const arr = load(storeKey, defaults);
+        const idx = arr.findIndex(a => a.key === item.key);
+        if(idx >= 0){
+          arr[idx].id = '';
+          if(arr[idx].type === 'video'){ arr[idx].title = defaults[idx]?.title || arr[idx].title; arr[idx].date = ''; arr[idx].info = ''; }
+          save(storeKey, arr);
+          render();
+        }
+      });
+
+      node.querySelector('[data-save]').addEventListener('click', ()=>{
+        const arr = load(storeKey, defaults);
+        const idx = arr.findIndex(a => a.key === item.key);
+        if(idx >= 0){
+          if(arr[idx].type === 'video'){
+            const newId = extractVideoId(input.value.trim());
+            arr[idx].id = newId || '';
+            arr[idx].title = titleInput.value.trim() || arr[idx].title;
+            arr[idx].date = dateInput.value || '';
+            arr[idx].info = descInput.value.trim() || '';
+            // img ignored
+          } else {
+            const newId = extractPlaylistId(input.value.trim());
+            arr[idx].id = newId || '';
+            arr[idx].title = titleInput.value.trim() || arr[idx].title;
+            arr[idx].desc = descInput.value.trim() || '';
+            arr[idx].img = imgInput.value.trim() || '';
+          }
+          save(storeKey, arr);
+          render();
+        }
+      });
+
+      return node;
     }
 
     function render(){
-      const arr = load();
-      countBadge.textContent = arr.length;
-      row.innerHTML = '';
-      arr.forEach(pl => {
-        const node = tpl.content.firstElementChild.cloneNode(true);
-        node.dataset.id = pl.id;
-        const t = node.querySelector('[data-title]'); if(t) t.textContent = pl.title || 'Naamloze playlist';
-        const i = node.querySelector('[data-id]'); if(i) i.textContent = pl.id;
-        const c = node.querySelector('[data-count]'); if(c) c.textContent = 'Playlist';
-        row.appendChild(node);
-      });
+      const albumData = load(STORAGE_ALBUMS, ALBUMS);
+      const epData = load(STORAGE_EPS, EPS);
+      const singleData = load(STORAGE_SINGS, SINGLES);
+      const albumList = byId('albumList');
+      const epList = byId('epList');
+      const singleList = byId('singleList');
+      albumList.innerHTML = '';
+      epList.innerHTML = '';
+      singleList.innerHTML = '';
+      const videoData = load(STORAGE_VIDS, VIDEOS);
+      const videoList = byId('videoList');
+      videoList.innerHTML = '';
+      albumData.forEach(item => albumList.appendChild(buildRow(item, STORAGE_ALBUMS, ALBUMS)));
+      epData.forEach(item => epList.appendChild(buildRow(item, STORAGE_EPS, EPS)));
+      singleData.forEach(item => singleList.appendChild(buildRow(item, STORAGE_SINGS, SINGLES)));
+      videoData.forEach(item => videoList.appendChild(buildRow(item, STORAGE_VIDS, VIDEOS)));
     }
 
-    // Event delegation: robust against template/DOM timing
-    row.addEventListener('click', (e)=>{
-      const delBtn = e.target.closest('[data-del]');
-      if(delBtn){
-        e.stopPropagation();
-        const card = delBtn.closest('[data-card]');
-        const id = card?.dataset.id;
-        if(!id) return;
-        const next = load().filter(x => x.id !== id);
-        save(next);
+    byId('resetAll').addEventListener('click', ()=>{
+      if(confirm('Alle Albums, EP’s en Singles wissen?')){
+        localStorage.removeItem(STORAGE_ALBUMS);
+        localStorage.removeItem(STORAGE_EPS);
+        localStorage.removeItem(STORAGE_SINGS);
+        localStorage.removeItem(STORAGE_VIDS);
         render();
-        if(activeId.textContent === id){
-          frame.src = '';
-          activeTitle.textContent = '';
-          activeId.textContent = '';
-          openBtn.disabled = true;
-        }
-        return;
-      }
-      const openInCard = e.target.closest('[data-open]');
-      if(openInCard){
-        e.stopPropagation();
-        const card = openInCard.closest('[data-card]');
-        const id = card?.dataset.id;
-        const pl = load().find(x => x.id === id);
-        if(pl) setActive(pl);
-        return;
-      }
-      const card = e.target.closest('[data-card]');
-      if(card){
-        const id = card.dataset.id;
-        const pl = load().find(x => x.id === id);
-        if(pl) setActive(pl);
       }
     });
 
-    // Defaults (you can replace these with your own)
-    const DEFAULTS = [
-      { id: 'PLFgquLnL59alCl_2TQvOiD5Vgm1hCaGSI', title: 'Voorbeeld: Elektronische Mixes' },
-      { id: 'PLvLX2y1KL1dlS86oCwO0E6x9gkt1lEHCd', title: 'Voorbeeld: Live Sets' }
-    ];
-
-    function ensureDefaults(){
-      const cur = load();
-      if(cur.length === 0){ save(DEFAULTS); }
-    }
-
-    // Form handlers
-    byId('addForm').addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const id = extractPlaylistId(byId('plInput').value);
-      const title = (byId('plName').value || '').trim();
-      if(!id){ alert('Kon geen playlist‑ID vinden. Controleer je invoer.'); return; }
-      let arr = load();
-      if(arr.some(x => x.id === id)){
-        alert('Deze playlist staat al in je lijst.');
-      } else {
-        arr.unshift({ id, title });
-        save(arr);
-        render();
-        setActive(arr[0]);
-      }
-      e.target.reset();
-    });
-
-    byId('clearBtn').addEventListener('click', ()=>{
-      if(confirm('Alle opgeslagen playlists wissen? Dit verwijdert alleen lokale data op dit apparaat.')){
-        save([]); render();
-        frame.src = '';
-        activeTitle.textContent = '';
-        activeId.textContent = '';
-        openBtn.disabled = true;
-      }
-    });
-
-    // --- Simple runtime tests / diagnostics ---
-    function report(el, ok, msg){
-      const li = document.createElement('li');
-      li.textContent = (ok ? '✅ ' : '❌ ') + msg;
-      el.appendChild(li);
-    }
-
-    function runTests(){
-      const list = byId('testList');
-      if(!list) return;
-      // Test 1: template structure
-      try{
-        const node = tpl.content.firstElementChild.cloneNode(true);
-        const hasOpen = !!node.querySelector('[data-open]');
-        const hasDel = !!node.querySelector('[data-del]');
-        report(list, !!node, 'Template clone maakbaar');
-        report(list, hasOpen, 'Template bevat [data-open]');
-        report(list, hasDel, 'Template bevat [data-del]');
-      }catch(e){ report(list, false, 'Template clone faalde: ' + e.message); }
-
-      // Test 2: extractPlaylistId
-      try{
-        const id1 = extractPlaylistId('https://www.youtube.com/playlist?list=PL1234567890abcdef');
-        report(list, id1 === 'PL1234567890abcdef', 'extractPlaylistId haalt ID uit URL');
-        const id2 = extractPlaylistId('PLabcdefghijklmnopqrstuvwxyzABCD');
-        report(list, id2 === 'PLabcdefghijklmnopqrstuvwxyzABCD', 'extractPlaylistId accepteert los ID');
-        const id3 = extractPlaylistId('invalid');
-        report(list, id3 === '', 'extractPlaylistId verwerpt ongeldige invoer');
-      }catch(e){ report(list, false, 'extractPlaylistId tests faalden: ' + e.message); }
-
-      // Test 3: render creates cards
-      try{
-        const before = row.children.length; render(); const after = row.children.length;
-        report(list, after >= 0, 'Render uitvoerbaar (cards aanwezig: ' + after + ')');
-      }catch(e){ report(list, false, 'Render faalde: ' + e.message); }
-    }
-
-    // Init
     document.addEventListener('DOMContentLoaded', ()=>{
       byId('year').textContent = new Date().getFullYear();
-      ensureDefaults();
       render();
-      const arr = load();
-      if(arr[0]) setActive(arr[0]);
-      runTests();
     });
   </script>
-
-  <!-- Diagnostics UI (optional) -->
-  <section class="mx-auto max-w-6xl px-4 pb-10">
-    <details class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/60 dark:bg-neutral-900/50 p-4">
-      <summary class="cursor-pointer select-none font-semibold">Diagnostiek & tests</summary>
-      <ul id="testList" class="mt-3 space-y-1 text-sm text-neutral-700 dark:text-neutral-300"></ul>
-      <p class="mt-3 text-xs text-neutral-500">Deze mini‑tests draaien in de browser om basisfouten te vangen (zoals ontbrekende template‑knoppen).</p>
-    </details>
-  </section>
 </body>
 </html>
