@@ -42,6 +42,7 @@
         <a href="#albums" class="px-4 py-2 rounded-xl bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-semibold">Albums</a>
         <a href="#eps" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">EP's</a>
         <a href="#singles" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">Singles</a>
+        <a href="#singles-excel" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">Singles (Excel)</a>
         <a href="#videos" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700">Video's</a>
       </div>
     </div>
@@ -64,6 +65,12 @@
     <section id="singles" class="section-spacing">
       <h2 class="text-2xl font-bold mb-6">Singles</h2>
       <div id="singleList" class="space-y-8"></div>
+    </section>
+
+    <!-- Singles (Excel) -->
+    <section id="singles-excel" class="section-spacing">
+      <h2 class="text-2xl font-bold mb-6">Singles (Excel)</h2>
+      <div id="singleListExcel" class="space-y-8"></div>
     </section>
 
     <!-- Videos -->
@@ -125,7 +132,7 @@
     // ---- Storage keys ----
     const STORAGE_ALBUMS = 'northsnd_albums_all_v2';
     const STORAGE_EPS    = 'northsnd_eps_all_v2';
-    const STORAGE_SINGS  = 'northsnd_singles_all_v2';
+    const STORAGE_SINGS  = 'northsnd_singles_all_v3';
     const STORAGE_VIDS   = 'northsnd_videos_all_v1';
 
     // ---- Defaults: Albums (9) ----
@@ -202,37 +209,42 @@
       return '';
     }
     function load(key, defaults){
-      const raw = localStorage.getItem(key);
-      let data = null;
-      try{ data = raw ? JSON.parse(raw) : null; } catch(e){ data = null; }
-      if(!data || !Array.isArray(data) || data.length !== defaults.length){
-        return JSON.parse(JSON.stringify(defaults));
-      }
-      return data.map((x, i)=> {
-        const base = { 
-          key: defaults[i]?.key || `item${i+1}`,
-          id: x.id || '',
-          img: '', // singles ignore, albums/eps may use
-          type: defaults[i]?.type || 'playlist'
-        };
-        if(base.type === 'video'){
-          return {
-            ...base,
-            title: x.title || defaults[i]?.title || `Single ${i+1}`,
-            date: x.date || '',
-            info: x.info || ''
-          };
-        } else {
-          return {
-            ...base,
-            title: x.title || defaults[i]?.title || `Item ${i+1}`,
-            desc: x.desc || defaults[i]?.desc || '',
-            img: x.img || defaults[i]?.img || ''
-          };
-        }
-      });
+  if (key === STORAGE_SINGS) {
+    // Always return defaults for singles (ignore localStorage)
+    return JSON.parse(JSON.stringify(defaults));
+  }
+  const raw = localStorage.getItem(key);
+  let data = null;
+  try{ data = raw ? JSON.parse(raw) : null; } catch(e){ data = null; }
+  if(!data || !Array.isArray(data) || data.length !== defaults.length){
+    return JSON.parse(JSON.stringify(defaults));
+  }
+  return data.map((x, i)=> {
+    const base = { 
+      key: defaults[i]?.key || `item${i+1}`,
+      id: x.id || '',
+      img: '', // singles ignore, albums/eps may use
+      type: defaults[i]?.type || 'playlist'
+    };
+    if(base.type === 'video'){
+      return {
+        ...base,
+        title: x.title || defaults[i]?.title || `Single ${i+1}`,
+        date: x.date || '',
+        info: x.info || ''
+      };
+    } else {
+      return {
+        ...base,
+        title: x.title || defaults[i]?.title || `Item ${i+1}`,
+        desc: x.desc || defaults[i]?.desc || '',
+        img: x.img || defaults[i]?.img || ''
+      };
     }
-    function embedUrlPlaylist(id){ return `https://www.youtube.com/embed/videoseries?rel=0&list=${encodeURIComponent(id)}`; }
+  });
+}
+
+function embedUrlPlaylist(id){ return `https://www.youtube.com/embed/videoseries?rel=0&list=${encodeURIComponent(id)}`; }
     function embedUrlVideo(id){ return `https://www.youtube.com/embed/${encodeURIComponent(id)}?rel=0`; }
 
     function buildRow(item, storeKey, defaults){
@@ -270,7 +282,119 @@
 
       return node;
     }
-    function render(){
+    const SINGLE_DATA_EXCEL = [
+  {title: "Freedom", date: "12-1996", url: "https://www.youtube.com/watch?v=AYrWRq5AxKE&list=RDAYrWRq5AxKE&start_radio=1"},
+  {title: "Forever yours", date: "02-1997", url: "https://www.youtube.com/watch?v=q4_fKqEUfuE&list=OLAK5uy_lxL2kbrH3OaXv0hvmVWftFAA7r6R5g56c"},
+  {title: "Experiment", date: "03-1997", url: "https://www.youtube.com/watch?v=zsAL-63oGtU&list=OLAK5uy_mdflen2wEKN_2AKl5mhauOZalHHxJvv_Y"},
+  {title: "Dream on", date: "04-1997", url: "https://www.youtube.com/watch?v=1a7u2MjKZlE&list=OLAK5uy_lYw_VND_3LinNoHk8-lyumha9lkMDeLZM"},
+  {title: "Infinity", date: "06-1997", url: "https://www.youtube.com/watch?v=7PaHdCO7Xm8&list=OLAK5uy_kaA87u_p_vfKdko2WxHV1JYfOdAff-Ors"},
+  {title: "Oxygen", date: "07-1997", url: "https://www.youtube.com/watch?v=W8F5Wx22CVk&list=OLAK5uy_nggFkw0uKL4j30qq0WjFSueHEnE_yn8Rk"},
+  {title: "Nightrhythm", date: "08-1997", url: "https://www.youtube.com/watch?v=SF9p_InqNYg&list=OLAK5uy_kZOSSfB8smSYVJnLj62ps80b9apFzI-Y0"},
+  {title: "Lost feelings", date: "09-1997", url: "https://www.youtube.com/watch?v=6dORjgHdVGg&list=OLAK5uy_mssisFkEZ8koUO_jSJWC4YjtdGpWabzZU"},
+  {title: "Living in a dream", date: "10-1997", url: "https://www.youtube.com/watch?v=ZHh_j9Xn2wg&list=OLAK5uy_lgE4BwrOzMUIq-8QiUuIAgHW-VpSOn0e8"},
+  {title: "Music for a lifetime", date: "01-1998", url: "https://www.youtube.com/watch?v=0DgqW0pHq94&list=OLAK5uy_lvavjxJrG9o0PwczUsKWzc5PgInwVaR5M"},
+  {title: "Into the night", date: "01-1998", url: "https://www.youtube.com/watch?v=wdJcGhRbgfg&list=OLAK5uy_lRfLBR-eoGa1kqTHqjvv4QbzSCkPaypeY"},
+  {title: "Utopia of love", date: "03-1998", url: "https://www.youtube.com/watch?v=cASNbXQxXmc&list=OLAK5uy_l1fPs_dLw01lKpmBhTtVNZnP6S86Xlgys"},
+  {title: "Apollo 11", date: "04-1998", url: "https://www.youtube.com/watch?v=Y6R1jt1H5L4&list=OLAK5uy_kVKCAlxFIClpcd78iVFSmX1DA6xJ_O2ZE"},
+  {title: "Dreaming", date: "04-1998", url: "https://www.youtube.com/watch?v=Di7XA5sP9ZM&list=OLAK5uy_m5cC9ztv6fMGPyWx70DCpWC8xrYMwo8Ec"},
+  {title: "Rave feelings", date: "04-1998", url: "https://www.youtube.com/watch?v=tDwH76rSb3I&list=OLAK5uy_mwqfyUfxuxwqVMTp47QT9SsjkKnlRI2Tk"},
+  {title: "Earthless", date: "05-1998", url: "https://www.youtube.com/watch?v=WEGkJpdiBIY&list=OLAK5uy_m5tYrBShKqtmb2uQz51ay5K01OZa8f4so"},
+  {title: "Velocity", date: "05-1998", url: "https://www.youtube.com/watch?v=3DLqCSmNIrQ&list=OLAK5uy_kWmdKCeoECo62wLmq4A8zpu_xRBl7rr1U"},
+  {title: "Visions of light", date: "05-1998", url: "https://www.youtube.com/watch?v=Kga9GNw2y6k&list=OLAK5uy_lAUo0YrkBJ98QHdgF6shWC9O89d9Spcps"},
+  {title: "Syntastic", date: "05-1998", url: "https://www.youtube.com/watch?v=etJ3k4_tVRU&list=OLAK5uy_n1W_O26cr4Res_ZmGGAe1nvKYMDHt7MFo"},
+  {title: "Far away", date: "08-1998", url: "https://www.youtube.com/watch?v=LHs09t0eFTo&list=OLAK5uy_lUC_dDRnLw_VWBGaJzr7WIrTfIO86-2gc"},
+  {title: "Passion", date: "08-1998", url: "https://www.youtube.com/watch?v=nn_lmmvk75o&list=OLAK5uy_l-kPx2ZAjfwCrsOUgAShcdzviPf9KDLV4"},
+  {title: "Oblivion", date: "09-1998", url: "https://www.youtube.com/watch?v=LEZjpySFDqM&list=OLAK5uy_nhWpG4zJt_NVd774k6uwkZwc_7iVK3Rg4"},
+  {title: "Missing world", date: "09-1998", url: "https://www.youtube.com/watch?v=cASNbXQxXmc&list=OLAK5uy_l1fPs_dLw01lKpmBhTtVNZnP6S86Xlgys"},
+  {title: "Feel so good", date: "09-1998", url: "https://www.youtube.com/watch?v=hEFVFfk9GBc&list=OLAK5uy_k5MFCzS-qp3TfusPscwJEq-9pHtK0L8A0"},
+  {title: "Once upon a lifetime", date: "09-1998", url: "https://www.youtube.com/watch?v=LvsQw4PCjbg&list=OLAK5uy_mKINelaNtNSZRd78trWOYNg8rKzNTIt6Y"},
+  {title: "Eternity", date: "11-1998", url: "https://www.youtube.com/watch?v=AlSXoMCksHs&list=OLAK5uy_mRyNsniq5rTcNdjU2kFSBGrZFAryb94vM"},
+  {title: "So alone without you", date: "12-1998", url: "https://www.youtube.com/watch?v=FXmsnkj3-fQ&list=OLAK5uy_nGHWBimxfPRI4hEy3c2AV6OJ4Adh_DY0Y"},
+  {title: "In my dreams", date: "01-1999", url: "https://www.youtube.com/watch?v=wRuF_4_nKOA&list=OLAK5uy_nzQ_r3Q5aen9KqYlThrM1w9bUfJ518N-Y"},
+  {title: "Voyager", date: "01-1999", url: "https://www.youtube.com/watch?v=YoQGwQV6nN0&list=OLAK5uy_m2TrKACNC-46l330VVy9OzvMm_usZO2sU"},
+  {title: "Wonderful world", date: "03-1999", url: "https://www.youtube.com/watch?v=eJuAs6x_zpc&list=OLAK5uy_n-T-c02_N-v8GyIAKw8oxf-lrrJlimqEI"},
+  {title: "The day the world never will forget", date: "06-1999", url: "https://www.youtube.com/watch?v=Tp89bjVYgWE&list=OLAK5uy_kMLuMPC_N4KFnXvROPOwAKdYAWtNXG4YQ"},
+  {title: "Trancentury", date: "07-1999", url: "https://www.youtube.com/watch?v=e85K8cYNT04&list=OLAK5uy_kasrmc6AhwEcrmSnX5IwMS_xQU7-LlzXY"},
+  {title: "Symphony", date: "09-1999", url: "https://www.youtube.com/watch?v=_vGntzLSwl0&list=OLAK5uy_nNmxxNQ3Wn5Rwvc0ERrYAbijsgt72Kqi4"},
+  {title: "Boot III", date: "09-1999", url: "https://www.youtube.com/watch?v=YOGh8Wpe3f4&list=OLAK5uy_mgwwtWFttSsnQstkSUBInR-dUPiei00FE"},
+  {title: "Back to Berlin", date: "09-1999", url: "https://www.youtube.com/watch?v=BLr3n42VKqI&list=OLAK5uy_mKv4_ThRPRg3NHCAyDcYWsbf0RoAWc-wU"},
+  {title: "The day after", date: "06-2000", url: "https://www.youtube.com/watch?v=ZFi1_-khEaU&list=OLAK5uy_n8c8krtyc5bA79j6AgLfrKObgFVz8JrQk"},
+  {title: "Somewhere somehow", date: "08-2000", url: "https://www.youtube.com/watch?v=xFMvr53RbO8&list=OLAK5uy_n1dTf1EHLHMtw63UlO52I5Vnx9VaBKK2A"},
+  {title: "Last resort", date: "11-2000", url: "https://www.youtube.com/watch?v=8HzuM-yPm8I&list=OLAK5uy_nRqXYDcB8z4hV884RMV70XcUL3uIvII7c"},
+  {title: "Soundtronic", date: "06-2001", url: "https://www.youtube.com/watch?v=3aGvgUj4qhg&list=OLAK5uy_nxBIpKhDstz5WnG1LmmF9ZMlMR3HNqrZk"},
+  {title: "Lost in space", date: "06-2001", url: "https://www.youtube.com/watch?v=9Ogs9kCUZoE&list=RD9Ogs9kCUZoE&start_radio=1"},
+  {title: "Digital dreams", date: "10-2001", url: "https://www.youtube.com/watch?v=6Etkl6C2yFI&list=OLAK5uy_nT84ApX3F_NgP8OWn1ww7qIEZ4Up38Guk"},
+  {title: "Adagio", date: "01-2002", url: "https://www.youtube.com/watch?v=loLdeY8x7_o&list=OLAK5uy_kox8A2yEC8MCW9UhxZ7FA0-sxX3tDoIKo"},
+  {title: "Discovery", date: "04-2002", url: "https://www.youtube.com/watch?v=4cmCcTTf1wM&list=OLAK5uy_kc0D1F2m3jibr40TzfqTFvSofdjtveeaI"},
+  {title: "Time", date: "06-2002", url: "https://www.youtube.com/watch?v=2x71ZlDk1Yg&list=OLAK5uy_kSSKfvzfZ62udz5YYGfiW81-OUBdDtpfs"},
+  {title: "Exploration", date: "10-2002", url: "https://www.youtube.com/watch?v=Itoc44-ra7g&list=OLAK5uy_mn7-EBldrGxEd6i2qfRhSUHql7FF-hIPA"},
+  {title: "Lethal energy", date: "11-2002", url: "https://www.youtube.com/watch?v=uWiSCHUwZdI&list=OLAK5uy_l5nTm_XViVo1_Cob112HPCrroNws9JEuQ"},
+  {title: "Trancer", date: "02-2003", url: "https://www.youtube.com/watch?v=wibsHsAdtjk&list=OLAK5uy_kUtPbDghSHFNmWIzoz407g_nikyhqmkB8"},
+  {title: "I need you", date: "02-2003", url: "https://www.youtube.com/watch?v=Uz82eWpx9tI&list=OLAK5uy_kfTIymNaSG5wh1Iit6LH3eXtYUcZNJvxc"},
+  {title: "Rave angels", date: "04-2003", url: "https://www.youtube.com/watch?v=pML9A1rJR24&list=OLAK5uy_m2Vreyq8rQFCXPQFDJhwSM3ySRUBLxQu8"},
+  {title: "Free", date: "05-2003", url: "https://www.youtube.com/watch?v=TpRT0pM13tY&list=OLAK5uy_l9ZWXx8nolRICXAdOgiDJdnvtJpJ8cwFg"},
+  {title: "Encore", date: "10-2003", url: "https://www.youtube.com/watch?v=2aTK-Woa8hk&list=OLAK5uy_myQe2loxjREbHWBRjcW0wCoVV3p1iGILk"},
+  {title: "Discovery of heaven", date: "12-2003", url: "https://www.youtube.com/watch?v=tB4qiVl8ep4&list=OLAK5uy_nt_8vQX6JIVi_DrQMWtNPBrlQZsCPdB-k"},
+  {title: "Skydive", date: "12-2003", url: "https://www.youtube.com/watch?v=J2Np_QYYcQ4&list=OLAK5uy_nBvDynOtC2mKWq5Gc22cesaPI7PR6Hz1o"},
+  {title: "Lightyears", date: "02-2004", url: "https://www.youtube.com/watch?v=3Axf4kpuAoc&list=OLAK5uy_mGg_UXqvlp-Fms4MVNI0wtkMcKFLAPSfU"},
+  {title: "Zeitmaschine", date: "02-2004", url: "https://www.youtube.com/watch?v=xX9qySsbIIo&list=OLAK5uy_n-M0ijQpfKHeIP6Etr-5mxXeZa5dnyUwU"},
+  {title: "Redemption", date: "09-2004", url: "https://www.youtube.com/watch?v=TpRT0pM13tY&list=OLAK5uy_l9ZWXx8nolRICXAdOgiDJdnvtJpJ8cwFg"},
+  {title: "Synthesized", date: "03-2006", url: "https://www.youtube.com/watch?v=4exPp91gX8I&list=OLAK5uy_kyZ0W4PVDvVoivwc-9kPW4q1FBtXw7f7U"},
+  {title: "Technology", date: "10-2008", url: "https://www.youtube.com/watch?v=eitHLmtKLKs&list=OLAK5uy_n5sk-aFZwDfBbMV2aIeZynIdz8jc4k4u8"},
+  {title: "Hardnoise", date: "05-2010", url: "https://www.youtube.com/watch?v=jLRPZHqopso&list=OLAK5uy_kAXOj3j0RyywBxWEoYfxeBijDDAlba70c"},
+  {title: "Elysium", date: "06-2010", url: "https://www.youtube.com/watch?v=F6b-bs781YM&list=OLAK5uy_lrKxEFtculTacJeXrPUbow59YqwvBACHk"},
+];
+
+
+function extractVideoIdClient(input){
+  if(!input) return '';
+  input = String(input).trim();
+  try {
+    const u = new URL(input);
+    if(u.hostname.includes('youtube.com')){
+      if(u.searchParams.get('v')) return u.searchParams.get('v');
+      const m = u.pathname.match(/\/shorts\/([A-Za-z0-9_-]{6,})/);
+      if(m) return m[1];
+      const m2 = u.pathname.match(/\/embed\/([A-Za-z0-9_-]{6,})/);
+      if(m2) return m2[1];
+    }
+    if(u.hostname.includes('youtu.be')){
+      const seg = u.pathname.split('/').filter(Boolean)[0];
+      if(seg) return seg;
+    }
+  } catch(e){}
+  const plain = input.match(/^[A-Za-z0-9_-]{6,}$/);
+  return plain ? plain[0] : '';
+}
+
+function renderSinglesExcel(){
+  const container = document.getElementById('singleListExcel');
+  if(!container) return;
+  container.innerHTML = '';
+  SINGLE_DATA_EXCEL.forEach((s, idx)=>{
+    const id = extractVideoIdClient(s.url || '');
+    const section = document.createElement('section');
+    section.className = "rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/60 p-4";
+    section.innerHTML = `
+      <div class="flex flex-col md:flex-row gap-4 md:gap-6 items-stretch">
+        <div class="md:w-5/12 lg:w-4/12 flex flex-col gap-2">
+          <div class="space-y-1">
+            <h3 class="text-lg font-semibold">${idx+1}. ${s.title || '—'}</h3>
+            <p class="text-xs text-neutral-500">${s.date || ''}</p>
+          </div>
+        </div>
+        <div class="md:w-7/12 lg:w-8/12">
+          <div class="ratio-16x9 bg-neutral-200/50 dark:bg-neutral-800/50 rounded-xl overflow-hidden">
+            ${id ? `<iframe src="https://www.youtube.com/embed/${encodeURIComponent(id)}?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="YouTube"></iframe>` : `<div class="h-full w-full flex items-center justify-center text-neutral-500 text-sm">No video link</div>`}
+          </div>
+        </div>
+      </div>
+    `;
+    container.appendChild(section);
+  });
+}
+
+function render(){
       const albumData = load(STORAGE_ALBUMS, ALBUMS);
       const epData = load(STORAGE_EPS, EPS);
       const singleData = load(STORAGE_SINGS, SINGLES);
@@ -291,6 +415,8 @@
 
     document.addEventListener('DOMContentLoaded', ()=>{
       byId('year').textContent = new Date().getFullYear();
+      renderSinglesExcel();
+      try { localStorage.removeItem('northsnd_singles_all_v2'); } catch(e) {}
       render();
     });
   </script>
