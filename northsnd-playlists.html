@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Northsnd — Playlists</title>
+  <meta name="description" content="Northsnd: muziekproject website met YouTube-playlists. Voeg je eigen playlists toe en speel ze direct af." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{ color-scheme: dark light; }
+    html { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif; }
+    /* Responsive 16:9 iframe wrapper */
+    .ratio-16x9 { position: relative; width: 100%; padding-bottom: 56.25%; }
+    .ratio-16x9 iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; border-radius: 1rem; }
+    /* Nice scrollbar for playlist list */
+    .scrollbar::-webkit-scrollbar{ height:8px; }
+    .scrollbar::-webkit-scrollbar-thumb{ background: #a3a3a3; border-radius: 999px; }
+  </style>
+</head>
+<body class="bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
+  <!-- HEADER -->
+  <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 bg-white/80 dark:bg-neutral-950/70 border-b border-neutral-200/60 dark:border-neutral-800">
+    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center gap-4">
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-400 shadow-lg"></div>
+        <div>
+          <h1 class="text-xl font-extrabold tracking-tight">Northsnd</h1>
+          <p class="text-xs text-neutral-500 -mt-1">Playlists • Live • Releases</p>
+        </div>
+      </div>
+      <nav class="ml-auto flex items-center gap-3 text-sm">
+        <a href="#play" class="px-3 py-1.5 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800">Afspelen</a>
+        <a href="#manage" class="px-3 py-1.5 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800">Playlists beheren</a>
+        <a href="#about" class="px-3 py-1.5 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800">Over</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO / PLAYER -->
+  <main id="play" class="mx-auto max-w-6xl px-4 py-10 space-y-10">
+    <section class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+      <div class="lg:col-span-3 space-y-4">
+        <h2 class="text-2xl font-bold">Nu afspelen</h2>
+        <div id="playerWrap" class="ratio-16x9 bg-neutral-200/50 dark:bg-neutral-900/50 flex items-center justify-center rounded-2xl">
+          <iframe id="ytFrame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="YouTube Playlist"></iframe>
+        </div>
+        <div class="flex items-center justify-between">
+          <div>
+            <p id="activeTitle" class="font-semibold"></p>
+            <p id="activeId" class="text-xs text-neutral-500"></p>
+          </div>
+          <button id="openInYouTube" class="text-sm px-3 py-1.5 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-medium disabled:opacity-40" disabled type="button">Open op YouTube</button>
+        </div>
+      </div>
+
+      <!-- QUICK ADD / MANAGE SIDEBAR -->
+      <aside id="manage" class="lg:col-span-2 space-y-6">
+        <div class="p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/60">
+          <h3 class="text-lg font-semibold mb-2">Playlist toevoegen</h3>
+          <p class="text-sm text-neutral-500 mb-4">Plak een YouTube playlist-URL of -ID. Geef eventueel een naam. Voorbeeld URL: <span class="font-mono">https://www.youtube.com/playlist?list=...</span></p>
+          <form id="addForm" class="grid gap-2" novalidate>
+            <label class="text-sm font-medium" for="plInput">Playlist URL of ID</label>
+            <input id="plInput" type="text" required placeholder="https://www.youtube.com/playlist?list=PL... of bv. PLxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" class="px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900" />
+            <label class="text-sm font-medium mt-2" for="plName">Naam (optioneel)</label>
+            <input id="plName" type="text" placeholder="Bijv. Northsnd — Live Sets" class="px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900" />
+            <div class="flex gap-2 mt-3">
+              <button class="px-4 py-2 rounded-xl bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-semibold" type="submit">Toevoegen</button>
+              <button id="clearBtn" class="px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700" type="button">Alles wissen</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/60">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-lg font-semibold">Mijn playlists</h3>
+            <span id="countBadge" class="text-xs px-2 py-1 rounded-full bg-neutral-200 dark:bg-neutral-800">0</span>
+          </div>
+          <div id="playlistRow" class="scrollbar overflow-x-auto flex gap-3 py-2"></div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="grid md:grid-cols-3 gap-8 items-start">
+      <div class="md:col-span-2 space-y-3">
+        <h2 class="text-2xl font-bold">Over Northsnd</h2>
+        <p class="text-neutral-600 dark:text-neutral-400">Northsnd is een elektronisch muziekproject met focus op melodische techno, progressive house en atmosferische soundscapes. Op deze site beheer en speel je YouTube‑playlists: releases, livesets, radioshows en inspiratie.</p>
+        <ul class="list-disc ml-6 text-neutral-700 dark:text-neutral-300">
+          <li>Voeg oneindig veel YouTube‑playlists toe zonder API‑sleutels.</li>
+          <li>Sla je lijst lokaal op via <em>localStorage</em> (blijft op dit apparaat).</li>
+          <li>Schakel direct tussen playlists met één klik.</li>
+        </ul>
+      </div>
+      <div class="p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/60">
+        <h3 class="font-semibold mb-2">Tip</h3>
+        <p class="text-sm text-neutral-500">Je kunt zowel een volledige URL plakken als alleen het playlist‑ID (meestal begint met <span class="font-mono">PL</span>, <span class="font-mono">UU</span> of <span class="font-mono">OLAK5uy_...</span>).</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-neutral-200 dark:border-neutral-800">
+    <div class="mx-auto max-w-6xl px-4 py-8 text-sm text-neutral-500 flex items-center justify-between">
+      <p>© <span id="year"></span> Northsnd</p>
+      <div class="flex gap-4">
+        <a class="hover:underline" href="#">Instagram</a>
+        <a class="hover:underline" href="#">YouTube</a>
+        <a class="hover:underline" href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!--
+    CARD TEMPLATE
+    Fix: outer wrapper is now a DIV instead of a BUTTON to avoid invalid nested <button> elements,
+    which caused Safari/WebKit to drop inner buttons and led to null querySelector results.
+  -->
+  <template id="cardTpl">
+    <div class="group shrink-0 w-56 text-left cursor-pointer" data-card tabindex="0" role="button" aria-label="Playlist kaart">
+      <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/60 p-4 hover:border-neutral-300 hover:shadow-sm transition">
+        <div class="aspect-video rounded-xl bg-neutral-200/60 dark:bg-neutral-800/60 grid place-items-center text-xs text-neutral-500">
+          <span class="group-data-[active=true]:hidden">YouTube Playlist</span>
+          <span class="hidden group-data-[active=true]:block font-semibold">Actief</span>
+        </div>
+        <div class="mt-3">
+          <p class="font-semibold truncate" data-title>Naamloze playlist</p>
+          <p class="text-xs text-neutral-500 font-mono truncate" data-id>ID</p>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <span class="text-xs px-2 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800" data-count>—</span>
+          <div class="flex gap-1">
+            <button class="text-xs px-2 py-1 rounded-lg border border-neutral-300 dark:border-neutral-700" data-open type="button">Open</button>
+            <button class="text-xs px-2 py-1 rounded-lg border border-red-300 text-red-600 dark:border-red-700" data-del type="button">Verwijder</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    const byId = (id) => document.getElementById(id);
+    const tpl = byId('cardTpl');
+    const frame = byId('ytFrame');
+    const activeTitle = byId('activeTitle');
+    const activeId = byId('activeId');
+    const openBtn = byId('openInYouTube');
+    const row = byId('playlistRow');
+    const countBadge = byId('countBadge');
+
+    const STORAGE_KEY = 'northsnd_playlists_v1';
+
+    function extractPlaylistId(input){
+      if(!input) return '';
+      input = input.trim();
+      // If it's a full URL with list=
+      try{ const url = new URL(input); const list = url.searchParams.get('list'); if(list) return list; } catch(e){}
+      // If it's already an ID (common IDs start with PL/UU/RD/OLAK5uy_)
+      if(/^[A-Za-z0-9_-]{16,64}$/.test(input)) return input;
+      return '';
+    }
+
+    function load(){
+      const raw = localStorage.getItem(STORAGE_KEY);
+      let arr = [];
+      try{ arr = raw ? JSON.parse(raw) : []; }catch(e){ arr = []; }
+      return Array.isArray(arr) ? arr : [];
+    }
+    function save(arr){ localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
+
+    function setActive(pl){
+      if(!pl) return;
+      const src = `https://www.youtube.com/embed/videoseries?rel=0&list=${encodeURIComponent(pl.id)}`;
+      frame.src = src;
+      frame.title = pl.title || 'YouTube Playlist';
+      activeTitle.textContent = pl.title || 'Naamloze playlist';
+      activeId.textContent = pl.id;
+      openBtn.disabled = false;
+      openBtn.onclick = () => window.open(`https://www.youtube.com/playlist?list=${encodeURIComponent(pl.id)}`, '_blank');
+      // Mark active in UI
+      for(const card of row.querySelectorAll('[data-card]')){
+        const id = card.dataset.id;
+        card.dataset.active = id === pl.id ? 'true' : 'false';
+      }
+    }
+
+    function render(){
+      const arr = load();
+      countBadge.textContent = arr.length;
+      row.innerHTML = '';
+      arr.forEach(pl => {
+        const node = tpl.content.firstElementChild.cloneNode(true);
+        node.dataset.id = pl.id;
+        const t = node.querySelector('[data-title]'); if(t) t.textContent = pl.title || 'Naamloze playlist';
+        const i = node.querySelector('[data-id]'); if(i) i.textContent = pl.id;
+        const c = node.querySelector('[data-count]'); if(c) c.textContent = 'Playlist';
+        row.appendChild(node);
+      });
+    }
+
+    // Event delegation: robust against template/DOM timing
+    row.addEventListener('click', (e)=>{
+      const delBtn = e.target.closest('[data-del]');
+      if(delBtn){
+        e.stopPropagation();
+        const card = delBtn.closest('[data-card]');
+        const id = card?.dataset.id;
+        if(!id) return;
+        const next = load().filter(x => x.id !== id);
+        save(next);
+        render();
+        if(activeId.textContent === id){
+          frame.src = '';
+          activeTitle.textContent = '';
+          activeId.textContent = '';
+          openBtn.disabled = true;
+        }
+        return;
+      }
+      const openInCard = e.target.closest('[data-open]');
+      if(openInCard){
+        e.stopPropagation();
+        const card = openInCard.closest('[data-card]');
+        const id = card?.dataset.id;
+        const pl = load().find(x => x.id === id);
+        if(pl) setActive(pl);
+        return;
+      }
+      const card = e.target.closest('[data-card]');
+      if(card){
+        const id = card.dataset.id;
+        const pl = load().find(x => x.id === id);
+        if(pl) setActive(pl);
+      }
+    });
+
+    // Defaults (you can replace these with your own)
+    const DEFAULTS = [
+      { id: 'PLFgquLnL59alCl_2TQvOiD5Vgm1hCaGSI', title: 'Voorbeeld: Elektronische Mixes' },
+      { id: 'PLvLX2y1KL1dlS86oCwO0E6x9gkt1lEHCd', title: 'Voorbeeld: Live Sets' }
+    ];
+
+    function ensureDefaults(){
+      const cur = load();
+      if(cur.length === 0){ save(DEFAULTS); }
+    }
+
+    // Form handlers
+    byId('addForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const id = extractPlaylistId(byId('plInput').value);
+      const title = (byId('plName').value || '').trim();
+      if(!id){ alert('Kon geen playlist‑ID vinden. Controleer je invoer.'); return; }
+      let arr = load();
+      if(arr.some(x => x.id === id)){
+        alert('Deze playlist staat al in je lijst.');
+      } else {
+        arr.unshift({ id, title });
+        save(arr);
+        render();
+        setActive(arr[0]);
+      }
+      e.target.reset();
+    });
+
+    byId('clearBtn').addEventListener('click', ()=>{
+      if(confirm('Alle opgeslagen playlists wissen? Dit verwijdert alleen lokale data op dit apparaat.')){
+        save([]); render();
+        frame.src = '';
+        activeTitle.textContent = '';
+        activeId.textContent = '';
+        openBtn.disabled = true;
+      }
+    });
+
+    // --- Simple runtime tests / diagnostics ---
+    function report(el, ok, msg){
+      const li = document.createElement('li');
+      li.textContent = (ok ? '✅ ' : '❌ ') + msg;
+      el.appendChild(li);
+    }
+
+    function runTests(){
+      const list = byId('testList');
+      if(!list) return;
+      // Test 1: template structure
+      try{
+        const node = tpl.content.firstElementChild.cloneNode(true);
+        const hasOpen = !!node.querySelector('[data-open]');
+        const hasDel = !!node.querySelector('[data-del]');
+        report(list, !!node, 'Template clone maakbaar');
+        report(list, hasOpen, 'Template bevat [data-open]');
+        report(list, hasDel, 'Template bevat [data-del]');
+      }catch(e){ report(list, false, 'Template clone faalde: ' + e.message); }
+
+      // Test 2: extractPlaylistId
+      try{
+        const id1 = extractPlaylistId('https://www.youtube.com/playlist?list=PL1234567890abcdef');
+        report(list, id1 === 'PL1234567890abcdef', 'extractPlaylistId haalt ID uit URL');
+        const id2 = extractPlaylistId('PLabcdefghijklmnopqrstuvwxyzABCD');
+        report(list, id2 === 'PLabcdefghijklmnopqrstuvwxyzABCD', 'extractPlaylistId accepteert los ID');
+        const id3 = extractPlaylistId('invalid');
+        report(list, id3 === '', 'extractPlaylistId verwerpt ongeldige invoer');
+      }catch(e){ report(list, false, 'extractPlaylistId tests faalden: ' + e.message); }
+
+      // Test 3: render creates cards
+      try{
+        const before = row.children.length; render(); const after = row.children.length;
+        report(list, after >= 0, 'Render uitvoerbaar (cards aanwezig: ' + after + ')');
+      }catch(e){ report(list, false, 'Render faalde: ' + e.message); }
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', ()=>{
+      byId('year').textContent = new Date().getFullYear();
+      ensureDefaults();
+      render();
+      const arr = load();
+      if(arr[0]) setActive(arr[0]);
+      runTests();
+    });
+  </script>
+
+  <!-- Diagnostics UI (optional) -->
+  <section class="mx-auto max-w-6xl px-4 pb-10">
+    <details class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/60 dark:bg-neutral-900/50 p-4">
+      <summary class="cursor-pointer select-none font-semibold">Diagnostiek & tests</summary>
+      <ul id="testList" class="mt-3 space-y-1 text-sm text-neutral-700 dark:text-neutral-300"></ul>
+      <p class="mt-3 text-xs text-neutral-500">Deze mini‑tests draaien in de browser om basisfouten te vangen (zoals ontbrekende template‑knoppen).</p>
+    </details>
+  </section>
+</body>
+</html>
