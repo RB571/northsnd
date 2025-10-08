@@ -16,60 +16,13 @@
     .card-grid { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1rem; }
     @media (min-width: 640px){ .card-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (min-width: 1024px){ .card-grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-    .thumb-wrap{ position:relative; aspect-ratio: 16/9; overflow:hidden; border-radius: 0.75rem; background: linear-gradient(135deg, rgba(0,0,0,.06), rgba(0,0,0,.12)); }
+    .thumb-wrap{ position:relative; aspect-ratio: 1/1; overflow:hidden; border-radius: 0.75rem; background: linear-gradient(135deg, rgba(0,0,0,.06), rgba(0,0,0,.12)); }
     .thumb-wrap img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
     .thumb-placeholder{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1rem; color:#fff; background:linear-gradient(135deg,#111,#333); }
     .tag{ font-size:.7rem; padding:.25rem .5rem; border-radius:.5rem; border:1px solid rgba(0,0,0,.08); }
     .banner img{ width:100%; height:auto; display:block; }
     .note{ font-size:.9rem; color: rgb(64 64 64); }
     @media (prefers-color-scheme: dark){ .note{ color: rgb(212 212 212); } }
-  
-    /* Timeline styles */
-    .timeline-wrap{ position: relative; }
-    .timeline{ position: relative; margin-left: 0; }
-    .timeline:before{
-      content: "";
-      position: absolute;
-      left: 18px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, rgba(115,115,115,.25), rgba(115,115,115,.05));
-    }
-    .t-year{ display:flex; align-items:center; gap:.75rem; margin: 2rem 0 1rem; }
-    .t-year h3{ font-weight:800; font-size:1.25rem; }
-    .t-item{ position: relative; display:flex; gap:1rem; padding: .75rem .75rem .75rem 3rem; border-radius: .75rem; }
-    .t-dot{
-      position:absolute; left:10px; top: 1.2rem; width:16px; height:16px; border-radius: 9999px;
-      background: radial-gradient(ellipse at center, #ffffff 0%, #ffffff 35%, #a3a3a3 36%, #525252 100%);
-      box-shadow: 0 0 0 3px rgba(255,255,255,.7);
-    }
-    .t-thumb{ flex: 0 0 180px; aspect-ratio: 16/9; overflow: hidden; border-radius: .5rem; border:1px solid rgba(0,0,0,.08); }
-    .t-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .t-meta{ display:flex; flex-direction:column; gap:.25rem; }
-    .t-title{ font-weight:600; line-height:1.2; }
-    .t-date{ font-size:.8rem; color: rgb(82 82 82); }
-    @media (prefers-color-scheme: dark){
-      .t-date{ color: rgb(163 163 163); }
-      .timeline:before{ background: linear-gradient(to bottom, rgba(163,163,163,.35), rgba(163,163,163,.08)); }
-    }
-
-    /* Appear animation */
-    .t-item{ opacity: 0; transform: translateY(8px); transition: opacity .4s ease, transform .4s ease; }
-    .t-item.visible{ opacity: 1; transform: translateY(0); }
-
-  
-    /* Larger timeline layout */
-    .t-item{ gap:1.25rem; padding:1rem 1rem 1rem 3.5rem; }
-    .t-thumb{ flex:0 0 240px; border-radius:.75rem; }
-    .t-thumb img{ object-fit:cover; }
-    .t-title{ font-size:1.1rem; font-weight:600; }
-    .t-date{ font-size:.9rem; }
-    @media (max-width:640px){
-      .t-item{ flex-direction:column; align-items:flex-start; padding-left:2.5rem; }
-      .t-thumb{ width:100%; flex:0 0 auto; }
-    }
-
   </style>
 </head>
 <body class="bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
@@ -82,7 +35,6 @@
         <a href="#albums" class="px-3 py-1.5 rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-semibold">Albums</a>
         <a href="#eps" class="px-3 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700">EP's</a>
         <a href="#singles" class="px-3 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700">Singles</a>
-        <a href="#timeline" class="px-3 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700">Timeline</a>
       </nav>
     </div>
   </header>
@@ -91,21 +43,6 @@
   <section class="banner">
     <img src="ChatGPT Image 3 okt 2025, 12_00_13.png" alt="Northsnd Schoolwork banner">
   </section>
-  <!-- Intro -->
-  <section class="px-4 sm:px-6 lg:px-8 py-10">
-    <div class="mx-auto max-w-3xl text-center">
-      <p class="text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
-        Northsnd revisits his formative years in music with ‘Schoolwork’, a five-part retrospective spanning 100 tracks produced between 1996 and 2014.
-        Moving from happy hardcore and dreamhouse to trance and techno, the project captures both his personal and musical growth during the pre-internet era.
-        Now fully remastered with modern tools, including A.I., ‘Schoolwork’ breathes new life into his teenage creations and frames them for today’s listeners.
-      </p>
-      <p class="text-base leading-relaxed text-neutral-600 dark:text-neutral-400 mt-4">
-        The project comprises 5 albums (100 tracks in total), alongside 2 compilation albums, 1 remix album, 1 collaboration album, 8 EPs, and 60 singles,
-        making Schoolwork one of the most extensive archival releases in electronic music.
-      </p>
-    </div>
-  </section>
-
 
   <main class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10">
     <!-- Albums Overview -->
@@ -127,19 +64,13 @@
     </section>
 
     <!-- Singles Overview -->
-    
-  
-    <!-- Timeline (interactive vertical with scroll indicator) -->
-    <section id="timeline" class="section-spacing">
+    <section id="singles" class="section-spacing">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-2xl font-bold">Timeline</h2>
-        <span class="tag">Singles per jaar</span>
+        <h2 class="text-2xl font-bold">Singles</h2>
+        <span class="tag" id="singlesCount">—</span>
       </div>
-      <div class="timeline-wrap">
-        <div class="timeline" id="timelineList"></div>
-      </div>
+      <div id="singleOverview" class="card-grid"></div>
     </section>
-
   </main>
 
   <footer class="border-t border-neutral-200 dark:border-neutral-800">
@@ -358,84 +289,11 @@
         if(badge) badge.textContent = SINGLE_DATA.length + ' items';
       }
 
-      
-      function parseYear(dateStr){
-        if(!dateStr) return 'Unknown';
-        const m = String(dateStr).match(/(\d{2}|\d)-(\d{4})/);
-        return m ? m[2] : 'Unknown';
-      }
-      function monthNameNL(mm){
-        const labels = ['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
-        const i = Math.min(11, Math.max(0, parseInt(mm,10) - 1));
-        return labels[i] || mm;
-      }
-      function formatMonthYear(dateStr){
-        const parts = String(dateStr||'').split('-');
-        const m = (parts[0]||'').padStart(2,'0');
-        const y = parts[1]||'';
-        if(m && y) return monthNameNL(m) + ' ' + y;
-        return dateStr || '';
-      }
-      function groupByYear(singles){
-        const map = {};
-        singles.forEach(s => {
-          const y = parseYear(s.date);
-          if(!map[y]) map[y] = [];
-          map[y].push(s);
-        });
-        const years = Object.keys(map).filter(y => y !== 'Unknown').sort();
-        const unknown = map['Unknown'] ? ['Unknown'] : [];
-        return { years, map, unknown };
-      }
-      function renderTimeline(){
-        const container = document.getElementById('timelineList');
-        if(!container) return;
-        const { years, map, unknown } = groupByYear(SINGLE_DATA);
-        const frag = document.createDocumentFragment();
-        [...years, ...unknown].forEach(year => {
-          const yEl = document.createElement('div');
-          yEl.className = 't-year';
-          yEl.innerHTML = `<h3>${year}</h3><div class="h-px flex-1 bg-neutral-200 dark:bg-neutral-800"></div>`;
-          frag.appendChild(yEl);
-          const items = (map[year] || []).slice().sort((a,b)=>{
-            const ma = parseInt((a.date||'').split('-')[0],10)||0;
-            const mb = parseInt((b.date||'').split('-')[0],10)||0;
-            if(ma !== mb) return ma - mb;
-            return (a.title||'').localeCompare(b.title||'');
-          });
-          items.forEach(s => {
-            const id = extractVideoIdClient(s.url || '');
-            const image = id ? `https://img.youtube.com/vi/${encodeURIComponent(id)}/hqdefault.jpg` : null;
-            const href = s.url || (id ? ytWatchUrl(id) : '#');
-            const it = document.createElement('div');
-            it.className = 't-item';
-            it.innerHTML = `
-              <span class="t-dot" aria-hidden="true"></span>
-              <a class="t-thumb" href="${href}" target="_blank" rel="noopener">
-                ${image ? `<img src="${image}" alt="${(s.title||'').replace(/"/g,'&quot;')}" loading="lazy">` : ''}
-              </a>
-              <div class="t-meta">
-                <div class="t-title">${s.title || '—'}</div>
-                <div class="t-date">${formatMonthYear(s.date)}</div>
-              </div>
-            `;
-            frag.appendChild(it);
-          });
-        });
-        container.innerHTML = '';
-        container.appendChild(frag);
-        const io = new IntersectionObserver((entries)=>{
-          entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-        }, { rootMargin: '0px 0px -10% 0px', threshold: .1 });
-        container.querySelectorAll('.t-item').forEach(el => io.observe(el));
-      }
-
       document.addEventListener('DOMContentLoaded', async ()=>{
         setYear();
         await renderAlbums();
         await renderEps();
         renderSingles();
-        renderTimeline();
       });
     })();
   </script>
